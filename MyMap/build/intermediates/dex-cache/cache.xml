@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-80b29412f6088756447cc6aa16c5678821f8ee57.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="041d93cf0533591c29d1d7263b2fa114dbfb20bd">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-2df895c242627de7e789dc627f942d13f4e81a09.jar" />
+    </item>
+    <item
+        jar="C:\Users\alberta.adm\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.3.0\8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c\bolts-tasks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\bolts-tasks-1.3.0-03ee7626f7d5b9c30095f8bce201f45da52fe763.jar" />
+    </item>
+    <item
+        jar="C:\Users\alberta.adm\.gradle\caches\modules-2\files-2.1\com.parse\parse-android\1.10.3\36366e460af2c0f224bb8f70b64e3302f638b138\parse-android-1.10.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="36366e460af2c0f224bb8f70b64e3302f638b138">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\parse-android-1.10.3-9633d7e5a001f344936cbb04461a289b47401944.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dcb5b75baf05d92e61d5706737200ee55949f97b">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-8835eb14c000b0899205463c0abe3d070bea98c0.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="95758a2905669affbffc5ddd262921d375674fad">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-e654e46c6702268177f219d275b07592d690be86.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3178362320bcf51228835b60ff978efadfd1f783">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-43b757683fdfc23b63c6fb0f1192df72d4f43640.jar" />
+    </item>
+    <item
+        jar="C:\Users\alberta.adm\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-applinks\1.3.0\bc535105332645408ef5f1380215cc954b842178\bolts-applinks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="bc535105332645408ef5f1380215cc954b842178">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\bolts-applinks-1.3.0-3d15ceabc0ad96224f6ab381ddb8540dc7775140.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-dae4760043630bb24b7c046d51fe14ee2cbf57db.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-ea395203a75c6beeb6abbcd8d8c9f93a745ce366.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3b05c18f60969ecc2ba49c0409c4b96be2d9cb0c">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-14b9e915f21e288cc0b34726544c352d9b9fea4d.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b92002cb2f0e11a226ac5bac6dff1dc2a9d0b774">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-6d56b57b969a95691026d7a1bdb9370f953154f6.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9cf8c0ef60847621c7ad00b4f78dbfc9daba4af2">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-e44769ad96a612753d15bfd663b5db3768e45787.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-077795f1ac98588dc913f075eb5417372abc81a4.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="997773777cf3904c11d6764fe3b7668538220e49">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-350ffb65df9ae563eaca19a4230f74515a6de3e1.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-5d95e1c78beacaf3c23b7e96ae0c5a1447ef83c0.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d93480da1d303122ee67dc3bc23e6297bdef9951">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-81b35aa9b7e06286147229936bd1d1bc20071171.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-05c6ce648b025598f73ad10ea001b0779ea387bf.jar" />
+    </item>
+    <item
+        jar="C:\Users\alberta.adm\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-dcf1c8206b32b300492919de03bc710eb299eb9c.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-9f148c1a91a6c751d9e096504cb6afe4a1edd49b.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d294caf562c4c678b2ef351662a0ca6f1a4d06c0">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-e5239d0df5b9cc46dd6c237f230d672aa883495a.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-a93a94eb33572f9ec43940dd11c57119f4b82fd9.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-d076f18416a537fe4711b3ebe16229b686b8aaed.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="482de223655d06253cc6a4955d653f8994169500">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-f299437eff7ba710230ba6b76e53c5e43cc7d99b.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="17449c47df35c754b257532052f1270c444f7993">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-e31296d7c9d056fc2df14d7a395998777c2bd5ce.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="325788a04b436a0bccbc5b4c54cf0f12ebdcbd2d">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-798536dec76943030a4cf9f843d1f313feac6c3f.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="993834cb17d07d51b92db89d2c330243592ebf77">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-221ea7fdb1325fb49d906eaba2440136fa71af01.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-82cae7a48374ddf9b93d09106415b48c98452a62.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="97f3b099801a9ad9d70e835b9125273e986eb68d">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-ae8b5da06d09048acc2b815afe616d9822e82a6c.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d61920aba361832a9545a43fa8c9453eb02f18f7">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-3a6169c70d813b04cf2c63714089bfe442efe6c7.jar" />
+    </item>
+    <item
+        jar="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3c729e6d76a36c5dc27e6a4c4009296f49eaa88a">
+        <dex dex="C:\Users\albert.assaad\Desktop\guitta\MyMap\app\build\intermediates\pre-dexed\debug\classes-3d070ee38b2e526b30c0705c2d855093e5763010.jar" />
+    </item>
+
+</items>
