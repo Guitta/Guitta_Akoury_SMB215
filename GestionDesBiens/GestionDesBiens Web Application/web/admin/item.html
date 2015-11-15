@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Items</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css"/>
+        <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" language="javascript" src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+        
+        <script type='text/javascript' src="http://codeinnovators.meximas.com/pdfexport/jspdf.debug.js"></script>
+    
+    </head>
+    <body>
+          <div class="menu"><a href="center.html">Centers</a><a href="item.html">Items</a> <a href="location.html">Location</a>
+            <a href="salle.html">Salle</a><a href="transaction.html">Transaction</a><a href="transport.html">Transport</a>
+            <a href="type.html">Type</a> <a href="personnel.html">Personnel</a><a href="users.html">Users</a> <a href="groupe.html">Groupe</a>
+        </div>
+        <div id="loads"></div>
+        <table id="table" class="hidden">
+            <tr class="head">
+               <th class="export">Item Code</th>
+                <th class="export">Date created</th>
+                <th class="export">Item Name</th>
+                <th class="export">Type</th>
+                <th class="export">Specification</th>
+
+                <th class="export">Location</th>
+                <th>Image</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </table>
+          <div class="btn-group open">
+	<button class="btn btn-warning btn-sm " id="export">Export Table Data</button>
+							
+	</div>
+        <div><button class="new">New</button></div>
+
+        <div class="Items none">
+            <table>  
+                <tr class="justedit"><td>Item Id</td><td><input id="itemid" type="text" value=""  readonly /></td></tr>
+                <tr><td>Item Code</td><td><input id="itemcode" type="text" value="" /></td></tr>
+                <tr><td>Date create</td><td><input id="itemdate" type="datetime" value="" /></td></tr>
+                <tr><td>Item Name</td><td><input id="name" value="" type="text" /></td></tr>
+                <tr><td>Specification</td><td><input id="spec" value="" type="text" /></td></tr>
+                <tr><td>Type</td><td><select id="type" name="type"></select></td></tr>
+                <tr><td>Location</td><td><select id="loc"></select></td></tr>
+                <tr><td colspan="2"><button id="save" value="save">Save</button></td></tr>
+            </table>
+        </div>
+<script src="../js/jquery.datetimepicker.full.js"></script>
+        <script type="text/javascript">
+            var txt = "";
+            var locations = "";
+
+
+            $(document).ready(function () {
+                jQuery.datetimepicker.setLocale('en');
+                jQuery('#itemdate').datetimepicker({ format:'Y-m-d h:m:s',defaultHours: 0, defaultMinutes: 0});
+                
+
+                list();
+                getAllType();
+                getAlllocation();
+                 $('#export').click(demoFromHTML);
+
+            });
+               function demoFromHTML() {
+                var pdf = new jsPDF('p', 'pt', 'letter');
+
+                pdf.cellInitialize();
+                pdf.setFontSize(10);
+                var width = '';
+                $.each($('#table tr'), function (i, row) {
+                    $.each($(row).find("td.export, th.export"), function (j, cell) {
+                        var txt = $(cell).text().trim() || " ";
+                      
+                        var width = (j == 1) ? 150 : 90; //make with column smaller
+                        pdf.cell(10, 50, width, 30, txt, i);
+                    });
+                });
+
+                pdf.save('item.pdf');
+            }
+            function getAllType() {
+
+                $.ajax({
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.type/',
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+                        if (result) {
+                            var len = result.length;
+                            console.log(result.length);
+                            if (len > 0) {
+                                for (var i = 0; i < len; i++) {
+
+
+                                    txt += "<option value='" + result[i].typeId + "'>" + result[i].typeName + "</option>";
+
+                                    console.log(txt);
+
+                                }
+                                console.log(txt + "afetr for loop");
+
+                            }
+                        }
+                        $("#type").append(txt);
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('error: ' + textStatus + ': ' + errorThrown);
+                    }
+
+                });
+                console.log(txt);
+
+            }
+            function getAlllocation() {
+
+                $.ajax({
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.location',
+                    type: "GET",
+                    dataType: "json",
+                    beforeSend: function () {
+                        // this is where we append a loading image
+                        $('#loads').html('<div class="loading"><img src="../images/loading.gif" alt="Loading..." /></div>');
+                    },
+                    success: function (locs) {
+                        $("#loads").empty();
+                        if (locs) {
+                            var len = locs.length;
+
+                            if (len > 0) {
+                                for (var i = 0; i < len; i++) {
+
+                                 
+                                        locations += "<option value='" + locs[i].locationId + "'>" + locs[i].locationId + "</option>";
+                                 
+
+                                }
+                                $("#loc").append(locations);
+                            }
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error: ' + textStatus + ': ' + errorThrown);
+                    }
+
+                });
+
+            }
+            function list() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.item',
+                    data: $('#table').serialize(),
+                    dataType: "json", //to parse string into JSON object,
+                    beforeSend: function () {
+                        // this is where we append a loading image
+                        $('#loads').html('<div class="loading"><img src="../images/loading.gif" alt="Loading..." /></div>');
+                    },
+                    success: function (data) {
+                        $('#loads').empty();
+                        if (data) {
+                            var len = data.length;
+                            var txt = "";
+                            if (len > 0) {
+                                for (var i = 0; i < len; i++) {
+                                    if (data[i].itemCode && data[i].itemDateCreated) {
+
+
+                                        txt += "<tr id='" + data[i].itemId + "' ><td id='code_" + data[i].itemId + "' class='export'>" + data[i].itemCode + "</td>\n\
+                                           <td class='date export' id='date_" + data[i].itemId + "'>" + data[i].itemDateCreated + "</td><td class='name export' id='name_" + data[i].itemId + "' >" + data[i].itemName + "</td>\n\
+                                           <td class='type export' id='type_" + data[i].typeId.typeId + "'>" + data[i].typeId.typeName + "</td>\n\\n\
+                                         <td class='spec export' id='spec_" + data[i].itemId + "'>" + data[i].itemSpecification + "</td><td id='loc_" + data[i].locationId.locationId + "' class='loc export' >" + data[i].locationId.locationId + "</td>" +
+                                         "<td><a href='http://localhost:8080/GestionDesBiens/webresources/model.item/get" + data[i].itemId +data[i].itemName+ "'>Download</td></td><td class='edit' id='edit_" + data[i].itemId + "'>Edit </td><td class='delete' id='delete_" + data[i].itemId + "'>Delete </td></tr>";
+
+                                    }
+                                }
+                                if (txt != "") {
+                                    $("#table").append(txt).removeClass("hidden");
+                                }
+                            }
+                        }
+                        $('.edit').click(edit);
+                        $('.delete').click(delete2);
+                        $('.new').click(New);
+
+                    },
+                    error: function () {
+                        // failed request; give feedback to user
+                        $('#loads').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+                    }
+                });
+            }
+            function delete2() {
+
+                console.log("beforedelete");
+
+                var id = $(this).attr('id');
+                var res = id.substring(7);
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.item/' + res,
+                    beforeSend: function () {
+                        // this is where we append a loading image
+                        $('#loads').html('<div class="loading"><img src="../images/loading.gif" alt="Loading..." /></div>');
+                    },
+                    success: function (data) {
+                        $("#loads").empty();
+
+                        console.log('Item deleted successfully');
+                    },
+                    error: function (jqXHR) {
+                        $("#loads").empty();
+                        console.log('delete item error');
+                    }
+                });
+
+                $("#"+res).remove();
+                console.log("hi");
+            
+                console.log("delete");
+            }
+
+
+            function edit() {
+                // e.preventDefault();
+                console.log("hello");
+
+                console.log("hi");
+                var id = $(this).attr('id');
+                var res = id.substring(5);
+
+                $.ajax({
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.item/' + res,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#loads').empty();
+
+                        $("#itemid").val(data.itemId);
+                        $("#itemcode").val(data.itemCode);
+                        $("#itemdate").val(data.itemDateCreated);
+                        $("#name").val(data.itemName);
+                        $("#spec").val(data.itemSpecification);
+
+                        $("#type").val(data.typeId.typeId);
+                        $("#loc").val(data.locationId.locationId);
+
+
+
+
+                    }
+                });
+                 $(".justedit").show();
+                 $(".none").css("display","block");
+                $("#table tr:not(.head)").remove();
+
+                list();
+                console.log("delete");
+            }
+
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+
+                var code = $("#itemcode").val();
+                var firstdate = $("#itemdate").val();
+                var date = firstdate.substring(0, 10);
+                date = date + "T" + firstdate.substring(11, 19) + "+00:00";
+               
+                 
+              //  2015-10-23 03:10:00
+              //  2015-10-28T22:46:34+02:00
+              //  2015-10-27T12:10:33+00:00
+                var name = $("#name").val();
+                var spec = $("#spec").val();
+                var type = $("#type").val();
+               var conceptName = $('#type').find(":selected").text();
+                var location = $("#loc").val();
+
+                var id = $("#itemid").val();
+                if (id == '') {
+                    console.log("vide");
+
+                    $.ajax({url: "http://localhost:8080/GestionDesBiens/webresources/model.item/lastid", success: function (count) {
+                               var len = count.length;
+                            
+                           newid = 1;
+                            if (len > 0) {
+                                  for (var i = 0; i < len; i++) {
+                                         
+                                      newid = Number(count[i].itemId) + 1;
+                       
+                                  }
+                                
+                            }
+                            console.log(count);
+                            var edit = '{"itemCode":"' + code + '","itemDateCreated":"' + date + '","itemId": ' + newid + ' ,"itemName":"' + name + '","itemSpecification":"' + spec + '","locationId":{"locationId": ' + location + ' },"typeId":{"typeId":' + type + '}}';
+
+
+                            $.ajax({
+                                type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+                                dataType: 'application/json', // Set datatype - affects Accept header
+                                contentType: "application/json; charset=utf-8",
+                                url: "http://localhost:8080/GestionDesBiens/webresources/model.item/", // A valid URL
+                                headers: {"X-HTTP-Method-Override": "PUT"}, // X-HTTP-Method-Override set to PUT.
+                                data: edit, // Some data e.g. Valid JSON as a string
+                                success: function (html) {
+                                    //noinspection DocumentWriteJS
+                                  //  $(".none").hide();
+                                  //  $("#table tr:not(.head)").remove();
+                                    var row ="<tr id='" + newid + "' ><td id='code_" + newid + "'>" + code + "</td>\n\
+                                           <td class='date' id='date_" + newid + "'>" + date + "</td><td class='name' id='name_" + newid + "' >" + name + "</td>\n\
+                                           <td class='type' id='type_" + type + "'>" + conceptName + "</td>\n\\n\
+                                         <td class='spec' id='spec_" + newid + "'>" + spec + "</td><td id='loc_" + location + "' class='loc' >" + location + "</td>" +
+                                                "<td><a href='http://localhost:8080/GestionDesBiens/webresources/model.item/get" + newid + "'>Download</a></td> <td class='edit' id='edit_" + newid + "'>Edit </td><td class='delete' id='delete_" + newid + "'>Delete </td></tr>";
+
+                                    console.log("try to update");
+                                 //   list();
+                                 $("#table").append(row);
+                                    console.log("updated");
+
+                                }
+                            });
+                        }});
+
+
+
+
+                }
+                else {
+                    var edit = '{"itemCode":"' + code + '","itemDateCreated":"' + date + '","itemId": ' + id + ',"itemName":"' + name + '","itemSpecification":"' + spec + '","locationId":{"locationId": ' + location + ' },"typeId":{"typeId":' + type + '}}';
+
+                    jQuery.ajax({
+                        url: "http://localhost:8080/GestionDesBiens/webresources/model.item/" + id,
+                        type: 'PUT',
+                        data: edit,
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (html) {
+                            //noinspection DocumentWriteJS
+                            $(".none").hide();
+                            $("#table tr:not(.head)").remove();
+                            console.log("try to update");
+                            list();
+                            console.log("updated");
+
+                        }
+                    });
+                }
+            });
+            function New() {        
+                $(".justedit").hide();
+                $("#itemid").val("");
+                $("#itemcode").val("");
+                $("#itemdate").val("");
+                $("#name").val("");
+                $("#spec").val("");
+                $("#type").val("");
+                $("#loc").val("");
+                 $(".none").css("display", "block");
+            }
+
+        </script>
+     
+    </body>
+</html>
