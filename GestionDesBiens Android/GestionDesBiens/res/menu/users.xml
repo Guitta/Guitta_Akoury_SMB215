@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.gestiondesbiens.UsersActivity" >
+
+  <item android:id="@+id/action_get_transations"
+        android:title="@string/get_transations" />
+    
+     <item android:id="@+id/action_get_type"
+        android:title="@string/get_type" />
+    
+    <item android:id="@+id/action_get_transport"
+        android:title="@string/get_transport" />
+    
+    <item android:id="@+id/action_get_items"
+        android:title="@string/get_items" />
+    
+     <item android:id="@+id/action_get_personnel"
+        android:title="@string/get_personnel" />
+    
+    
+    <item android:id="@+id/action_get_locations"
+        android:title="@string/get_locations" />
+    
+    <item android:id="@+id/action_get_centers"
+        android:title="@string/get_centers" />
+    
+    
+    <item android:id="@+id/action_get_salles"
+        android:title="@string/get_salles" />
+    
+     <item android:id="@+id/action_get_users"
+        android:title="@string/get_users" />
+    
+    <item android:id="@+id/action_get_groups"
+        android:title="@string/get_groups" />
+
+</menu>

@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.android.gestiondesbiens.TransactionsActivity" >
+
+    <Button
+        android:id="@+id/btnNewTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="btnNewTransaction_Click"
+        android:text="New" />
+
+    <Spinner
+        android:id="@+id/spinItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnNewTransaction"
+        android:layout_alignLeft="@+id/btnNewTransaction"
+        android:layout_toLeftOf="@+id/btnDeleteTransaction" />
+
+    <Button
+        android:id="@+id/btnDeleteTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinItem"
+        android:layout_centerHorizontal="true"
+        android:onClick="btnDeleteTransaction_Click"
+        android:text="Delete" />
+
+    <Button
+        android:id="@+id/btnSaveTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/spinItem"
+        android:onClick="btnSaveTransaction_Click"
+        android:text="Save" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/spinItem"
+        android:layout_alignLeft="@+id/spinItem"
+        android:text="item" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@+id/spinItem"
+        android:text="location\nsrc" />
+
+    <Spinner
+        android:id="@+id/spinLocationSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnDeleteTransaction"
+        android:layout_alignRight="@+id/btnDeleteTransaction"
+        android:layout_alignTop="@+id/spinItem"
+        android:layout_toRightOf="@+id/spinItem" />
+
+    <Spinner
+        android:id="@+id/spinLocationDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSaveTransaction"
+        android:layout_toLeftOf="@+id/btnSaveTransaction"
+        android:layout_toRightOf="@+id/btnDeleteTransaction" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/spinLocationDestination"
+        android:layout_alignLeft="@+id/spinLocationDestination"
+        android:text="location\ndest" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignLeft="@+id/btnSaveTransaction"
+        android:layout_alignParentRight="true"
+        android:text="location now" />
+
+    <Spinner
+        android:id="@+id/spinLocationNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSaveTransaction"
+        android:layout_alignLeft="@+id/btnSaveTransaction"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/spinLocationDestination" />
+
+    <ListView
+        android:id="@+id/lstTransactionHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/scrlTransactions"
+        android:layout_alignParentTop="true" >
+
+    </ListView>
+    
+    <ScrollView
+        android:id="@+id/scrlTransactions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1" >
+
+        <ListView
+            android:id="@+id/lstDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/textView1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" >
+
+    </ListView>
+    </ScrollView>
+
+</RelativeLayout>
