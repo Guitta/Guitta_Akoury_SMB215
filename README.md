@@ -10,4 +10,4 @@ L'application est sécurisée par la configuration d'un realm JDBC (l'authentifi
 
 3- MyMap : une application android développée sous android studio, cette application permet de positionner l'item sur une carte géographique (map) sur un mobile android en se servant des coordonnées déjà enregistrées sous parse.com en vue d'assurer la traçabilité externe du bien.
 
-4- GestionDesBiens : une application android  développée sous eclipse qui a les mêmes fonctions que l'application web qui porte le même nom (application 1) mais en version mobile.
+4- GestionDesBiens : une application android  développée sous eclipse qui a les mêmes fonctions que l'application web qui porte le même nom (application 1) mais en version mobile. Cette application utilise aussi les services web restful, XML parsers, et des queries assurant les fonctions du CRUD. Application est sécurisée par un nom d'utilisateur et un mot de passe permetant d'appliquer les permissions en orientant l'utilisateur connecté vers la page adéquate (page administrateur, page utilisateur) en se servant de l'adresse publique du service web pointant vers les tables users et groupe.
