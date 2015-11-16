@@ -1,5 +1,5 @@
 # Guitta_Akoury_SMB215
-Notre projet est composé de 4 applications : 
+Notre projet, développé pa Hayat Bourgi et moi, est composé de 4 applications : 
 
 1- GestionDesBiens : une application web développée sous NetBeans, cette application gère les biens d'une société ou d'une organisation, le CNAM par exemple. 
 Cette application traite la traçabilité interne et externe, la place de chaque bien est visible pour l'administrateur/utilisateur du système: la traçabilité interne : Centre, salle, personnel. La traçabilité externe : traçabilité du bien en cours du transport, d'un centre à l'autre par exemple.
