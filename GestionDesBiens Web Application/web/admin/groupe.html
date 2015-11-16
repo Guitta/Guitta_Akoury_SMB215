@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Groupes</title>
+        <meta charset="UTF-8">
+         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" language="javascript" src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+        <style>
+     
+        </style>
+    </head>
+    <body>
+        <div class="menu"><a href="center.html">Centers</a><a href="item.html">Items</a> <a href="location.html">Location</a>
+            <a href="salle.html">Salle</a><a href="transaction.html">Transaction</a><a href="transport.html">Transport</a>
+            <a href="type.html">Type</a><a href="users.html">Users</a> <a href="groupe.html">Groupe</a>
+        </div>
+        <div id="loads"></div>
+        <table id="table" class="hidden">
+            <tr class="head">
+                <th>Groupe Id</th>
+                <th>GroupeName</th>
+                <th>Username</th>
+                <th>Description</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </table>
+        <div><button class="new">New</button></div>
+
+        <div class="Items none">
+            <table>  
+                <tr class="justedit"><td>Groupe Id</td><td><input id="groupeid" type="text" value=""  readonly /></td></tr>
+                <tr><td>Groupe Name</td><td><input id="groupename" type="text" value="" /></td></tr>
+                <tr><td>Username</td><td><input id="username" type="text" /></td></tr>
+                <tr><td>Description</td><td><input type="text" id="description"/></td></tr>
+                <tr><td colspan="2"><button id="save" value="save">Save</button></td></tr>
+            </table>
+        </div>
+        <script type="text/javascript">
+            var txt = "";
+            var locations = "";
+
+
+            $(document).ready(function () {
+               
+             
+
+                list();
+              
+
+            });
+            
+         
+            function list() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.groupe',
+                    data: $('#table').serialize(),
+                    dataType: "json", //to parse string into JSON object,
+                    beforeSend: function () {
+                        // this is where we append a loading image
+                        $('#loads').html('<div class="loading"><img src="../images/loading.gif" alt="Loading..." /></div>');
+                    },
+                    success: function (data) {
+                        $('#loads').empty();
+                        if (data) {
+                            var len = data.length;
+                            var txt = "";
+                            if (len > 0) {
+                                for (var i = 0; i < len; i++) {
+                                    if (data[i].id) {
+
+
+                                        txt += "<tr id='" + data[i].id + "' ><td id='name_" + data[i].id + "'>" + data[i].id + "</td><td id='groupe_name" + data[i].id + "'>" + data[i].groupname + "</td>\n\
+                                                <td id='usernname_" + data[i].id + "'>" + data[i].username + "</td><td id='description_" + data[i].id + "'>" + data[i].description + "</td> <td class='edit' id='edit_" + data[i].id + "'>Edit </td><td class='delete' id='delete_" + data[i].id + "'>Delete </td></tr>";
+
+                                    }
+                                }
+                                if (txt != "") {
+                                    $("#table").append(txt).removeClass("hidden");
+                                }
+                            }
+                        }
+                        $('.edit').click(edit);
+                        $('.delete').click(delete2);
+
+                    },
+                    error: function () {
+                        // failed request; give feedback to user
+                        $('#loads').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+                    }
+                });
+            }
+            function delete2() {
+
+                console.log("beforedelete");
+
+                var id = $(this).attr('id');
+                var res = id.substring(7);
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.groupe/' + res,
+                    beforeSend: function () {
+                        // this is where we append a loading image
+                        $('#loads').html('<div class="loading"><img src="../images/loading.gif" alt="Loading..." /></div>');
+                    },
+                    success: function (data) {
+                        $("#loads").empty();
+
+                        console.log('Item deleted successfully');
+                    },
+                    error: function (jqXHR) {
+                        $("#loads").empty();
+                        console.log('delete item error');
+                    }
+                });
+
+                $("#"+res).remove();
+                console.log("hi");
+            
+                console.log("delete");
+            }
+
+
+            function edit() {
+               
+         
+
+                console.log("hi");
+                var id = $(this).attr('id');
+                
+                var res = id.substring(5);
+                
+
+                $.ajax({
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.groupe/' + res,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#loads').empty();
+
+                        $("#groupeid").val(data.id);
+                        $("#groupename").val(data.groupname);
+                        $("#description").val(data.description);
+                        $("#username").val(data.username)
+                       
+
+
+
+
+                    }
+                });
+                 $(".justedit").show();
+                $(".none").show();
+                $("#table tr:not(.head)").remove();
+
+                list();
+                console.log("delete");
+            }
+
+
+            $('#save').click(function (e) {
+               
+                var id = $("#groupeid").val();
+                
+             
+                var name = $("#groupename").val();
+                var username = $("#username").val();
+                var description = $("#description").val();
+                if (id == '') {
+                    console.log("vide");
+
+                    $.ajax({url: "http://localhost:8080/GestionDesBiens/webresources/model.groupe/lastid", success: function (count) {
+           
+                              var len = count.length;
+                            
+                           newid = 1;
+                            if (len > 0) {
+                                  for (var i = 0; i < len; i++) {
+                                         
+                                      newid = Number(count[i].id) + 1;
+                       
+                                  }
+                                
+                            }
+                            console.log(newid);
+                            var edit = '{"id":"' + newid + '","groupname":"' + name + '","username":"' + username + '","description":"' + description + '"}';
+
+
+                            $.ajax({
+                                type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+                                dataType: 'application/json', // Set datatype - affects Accept header
+                                contentType: "application/json; charset=utf-8",
+                                url: "http://localhost:8080/GestionDesBiens/webresources/model.groupe/", // A valid URL
+                                headers: {"X-HTTP-Method-Override": "PUT"}, // X-HTTP-Method-Override set to PUT.
+                                data: edit, // Some data e.g. Valid JSON as a string
+                                success: function (html) {
+                                    //noinspection DocumentWriteJS
+                                  //  $(".none").hide();
+                                  //  $("#table tr:not(.head)").remove();
+                                   
+                                          var row = "<tr id='" + newid + "' ><td id='name_" + newid + "'>" + newid + "</td><td id='groupe_name" + newid + "'>" + name + "</td>\n\
+                                                <td id='usernname_" + newid + "'>" + username + "</td><td id='description_" + newid + "'>" + description + "</td> <td class='edit' id='edit_" + newid + "'>Edit </td><td class='delete' id='delete_" + newid + "'>Delete </td></tr>";
+
+                         console.log("try to update");
+                                 //   list();
+                                 $("#table").append(row);
+                                    console.log("updated");
+
+                                }
+                            });
+                        }});
+
+
+
+
+                }
+                else {
+                      var edit = '{"id":"' + id + '","groupname":"' + name + '","username":"' + username + '","description":"' + description + '"}';
+
+
+                    jQuery.ajax({
+                        url: "http://localhost:8080/GestionDesBiens/webresources/model.groupe/" + id,
+                        type: 'PUT',
+                        data: edit,
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (html) {
+                            //noinspection DocumentWriteJS
+                            $(".none").hide();
+                            $("#table tr:not(.head)").remove();
+                            console.log("try to update");
+                            list();
+                            console.log("updated");
+
+                        }
+                    });
+                }
+            });
+            $('.new').click(function (e) {
+             
+              
+              $(".justedit").hide();
+                $("#groupeid").val("");
+                $("#groupename").val("");
+                $("#username").val("");
+                $("#description").val("");
+               
+
+                $(".none").show();
+
+
+            });
+
+        </script>
+     
+    </body>
+</html>

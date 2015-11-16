@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Personnels</title>
+        <meta charset="UTF-8">
+         <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" language="javascript" src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+        <style>
+     
+        </style>
+    </head>
+    <body>
+        <div class="menu"><a href="center.html">Centers</a><a href="item.html">Items</a> <a href="location.html">Location</a>
+            <a href="salle.html">Salle</a><a href="transaction.html">Transaction</a><a href="transport.html">Transport</a>
+            <a href="type.html">Type</a><a href="users.html">Users</a> <a href="groupe.html">Groupe</a>
+        </div>
+        
+        <div id="loads"></div>
+        <table id="table" class="hidden">
+            <tr class="head">
+                <th>Personnel Id</th>
+                <th>personnelName</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </table>
+        <div><button class="new">New</button></div>
+
+        <div class="Items none">
+            <table>  
+                <tr class="justedit"><td>Personnel Id</td><td><input id="personnelid" type="text" value=""  readonly /></td></tr>
+                <tr><td>Personnel Name</td><td><input id="personnelname" type="text" value="" /></td></tr>
+                  <tr><td colspan="2"><button id="save" value="save">Save</button></td></tr>
+            </table>
+        </div>
+        <script type="text/javascript">
+            var txt = "";
+            var locations = "";
+
+
+            $(document).ready(function () {
+               
+             
+
+                list();
+              
+
+            });
+            
+         
+            function list() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.personnel',
+                    data: $('#table').serialize(),
+                    dataType: "json", //to parse string into JSON object,
+                    beforeSend: function () {
+                        // this is where we append a loading image
+                        $('#loads').html('<div class="loading"><img src="../images/loading.gif" alt="Loading..." /></div>');
+                    },
+                    success: function (data) {
+                        $('#loads').empty();
+                        if (data) {
+                            var len = data.length;
+                            var txt = "";
+                            if (len > 0) {
+                                for (var i = 0; i < len; i++) {
+                                    if (data[i].personnelId) {
+
+
+                                        txt += "<tr id='" + data[i].personnelId + "' ><td id='name_" + data[i].personnelId + "'>" + data[i].personnelId + "</td><td id='name_" + data[i].personnelId + "'>" + data[i].personnelName + "</td>\n\
+                                                 <td class='edit' id='edit_" + data[i].personnelId + "'>Edit </td><td class='delete' id='delete_" + data[i].personnelId + "'>Delete </td></tr>";
+
+                                    }
+                                }
+                                if (txt != "") {
+                                    $("#table").append(txt).removeClass("hidden");
+                                }
+                            }
+                        }
+                        $('.edit').click(edit);
+                        $('.delete').click(delete2);
+
+                    },
+                    error: function () {
+                        // failed request; give feedback to user
+                        $('#loads').html('<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>');
+                    }
+                });
+            }
+            function delete2() {
+
+                console.log("beforedelete");
+
+                var id = $(this).attr('id');
+                var res = id.substring(7);
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.personnel/' + res,
+                    beforeSend: function () {
+                        // this is where we append a loading image
+                        $('#loads').html('<div class="loading"><img src="../images/loading.gif" alt="Loading..." /></div>');
+                    },
+                    success: function (data) {
+                        $("#loads").empty();
+
+                        console.log('Item deleted successfully');
+                    },
+                    error: function (jqXHR) {
+                        $("#loads").empty();
+                        console.log('delete item error');
+                    }
+                });
+
+                $("#"+res).remove();
+                console.log("hi");
+            
+                console.log("delete");
+            }
+
+
+            function edit() {
+                // e.preventDefault();
+         
+
+                console.log("hi");
+                var id = $(this).attr('id');
+                
+                var res = id.substring(5);
+                
+
+                $.ajax({
+                    url: 'http://localhost:8080/GestionDesBiens/webresources/model.personnel/' + res,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#loads').empty();
+
+                        $("#personnelid").val(data.personnelId);
+                        $("#personnelname").val(data.personnelName);
+                       
+
+
+
+
+                    }
+                });
+                 $(".justedit").show();
+                $(".none").show();
+                $("#table tr:not(.head)").remove();
+
+                list();
+                console.log("delete");
+            }
+
+
+            $('#save').click(function (e) {
+                e.preventDefault();
+
+                var id = $("#personnelid").val();
+                
+             
+                var name = $("#personnelname").val();
+                if (id == '') {
+                    console.log("vide");
+
+                    $.ajax({url: "http://localhost:8080/GestionDesBiens/webresources/model.personnel/lastid", success: function (count) {
+                               newid = 1;
+                              var len = count.length;
+                            if (len > 0) {
+                                  for (var i = 0; i < len; i++) {
+                                         
+                                      newid = Number(count[i].typeId) + 1;
+                    
+                                  }
+                                
+                            }
+                            var edit = '{"personnelId":"' + newid + '","personnelName":"' + name + '"}';
+
+
+                            $.ajax({
+                                type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+                                dataType: 'application/json', // Set datatype - affects Accept header
+                                contentType: "application/json; charset=utf-8",
+                                url: "http://localhost:8080/GestionDesBiens/webresources/model.personnel/", // A valid URL
+                                headers: {"X-HTTP-Method-Override": "PUT"}, // X-HTTP-Method-Override set to PUT.
+                                data: edit, // Some data e.g. Valid JSON as a string
+                                success: function (html) {
+                                    //noinspection DocumentWriteJS
+                                  //  $(".none").hide();
+                                  //  $("#table tr:not(.head)").remove();
+                                   
+                                          var row = "<tr id='" + newid + "' ><td id='name_" + newid + "'>" + newid + "</td><td id='name_" + newid + "'>" + name + "</td>\n\
+                                                 <td class='edit' id='edit_" + newid + "'>Edit </td><td class='delete' id='delete_" + newid + "'>Delete </td></tr>";
+
+        
+        console.log("try to update");
+                                 //   list();
+                                 $("#table").append(row);
+                                    console.log("updated");
+
+                                }
+                            });
+                        }});
+
+
+
+
+                }
+                else {
+                    var edit = '{"personnelId":"' + id + '","personnelName":"' + name + '"}';
+
+                    jQuery.ajax({
+                        url: "http://localhost:8080/GestionDesBiens/webresources/model.personnel/" + id,
+                        type: 'PUT',
+                        data: edit,
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (html) {
+                            //noinspection DocumentWriteJS
+                            $(".none").hide();
+                            $("#table tr:not(.head)").remove();
+                            console.log("try to update");
+                            list();
+                            console.log("updated");
+
+                        }
+                    });
+                }
+            });
+            $('.new').click(function (e) {
+                e.preventDefault();
+              
+              $(".justedit").hide();
+                $("#personnelid").val("");
+                $("#personnelname").val("");
+               
+
+                $(".none").show();
+
+
+            });
+
+        </script>
+     
+    </body>
+</html>
