@@ -8,5 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="/home/guitta/workspace/GestionDesBiens jar files/apache-httpcomponents-httpclient.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/guitta/workspace/GestionDesBiens jar files/http-core-4.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="/home/guitta/workspace/GestionDesBiens jar files/mysql-connector-java-5.1.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/guitta/workspace/GestionDesBiens jar files/guava-18.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

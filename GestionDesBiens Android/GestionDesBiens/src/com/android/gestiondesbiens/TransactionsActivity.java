@@ -1,17 +1,22 @@
 package com.android.gestiondesbiens;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import com.android.gestiondesbiens.model.Transactions;
 import com.android.gestiondesbiens.parsers.TransactionsXMLParser;
@@ -25,6 +30,8 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -34,9 +41,11 @@ import android.widget.Toast;
 public class TransactionsActivity extends Activity {
 	
 	List<Transactions> transactionsList;
-	List<MyTask> tasks;
+//	List<MyTask> tasks;
 	
-	private class MyTask extends AsyncTask<String, String, String> {
+/*	private class MyTask extends AsyncTask<String, String, String> {
+		
+		 
 
 		@Override
 		protected void onPreExecute() {
@@ -84,7 +93,7 @@ public class TransactionsActivity extends Activity {
 //			updateDisplay(values[0]);
 		}
 		
-	}
+	}*/
 	
 	ArrayList<HashMap<String, String>> arrHeader, arrDetails;
 	HashMap<String, String> mapReservedWorkHeader, mapReservedWorkDetails;
@@ -150,18 +159,103 @@ public class TransactionsActivity extends Activity {
 		setContentView(R.layout.activity_transactions);
 
 		this.lstHeader = (ListView)findViewById(R.id.lstTransactionHeader);
-		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstDetails);
+		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstTransactionDetails);
 		
 		this.LoadGridHeader();
 		
-		tasks = new ArrayList<>();
-		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.transaction");
+//		tasks = new ArrayList<>();
+//		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.transaction");
+		
+		this.lstReservedWorkDetails.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		new Thread() {
+		    public void run(){
+		        //phpRequest();
+		    	insertDeviceId();
+		    }
+		}.start();
 	}
 	
-	private void requestData(String uri) {
+	/*private void requestData(String uri) {
 		MyTask task = new MyTask();
 		task.execute(uri);
-	}
+	}*/
+	
+	  public boolean insertDeviceId()
+	    {
+	          InputStream is=null;
+	          String result=null;
+	          String line=null;
+	          String code;
+	          boolean res = false;
+	      /*  ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+	        nameValuePairs.add(new BasicNameValuePair("deviceId",deviceId));
+	        nameValuePairs.add(new BasicNameValuePair("onlineUserId", String.valueOf(onlineUserId)));*/
+	       
+	        try
+	        {
+	            HttpClient httpclient = new DefaultHttpClient();
+	            HttpPost httppost = new HttpPost("http://192.168.1.67:80/Select_Transaction.php");
+	           // httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	            HttpResponse response = httpclient.execute(httppost);
+	            HttpEntity entity = response.getEntity();
+	            is = entity.getContent();
+	            Log.e("pass 1", "connection success ");
+	        }
+	        catch(Exception e)
+	        {
+	            Log.e("Fail 1", e.toString());
+	        }        
+	       
+	        
+	        try
+	        {
+	            BufferedReader reader = new BufferedReader (new InputStreamReader(is,"iso-8859-1"),8);
+	            StringBuilder sb = new StringBuilder();
+	            while ((line = reader.readLine()) != null)
+	            {
+	                sb.append(line + "\n");
+	            }
+	            is.close();
+	            result = sb.toString();
+	            LoadGridDetails(result);
+	        Log.e("pass 2", "connection success ");
+	        }
+	        catch(Exception e)
+	        {
+	            Log.e("Fail 2", e.toString());
+	        }    
+	      
+	        return res;
+	    }
+
+
+
+	
+	/*public void phpRequest()
+    {
+
+         try
+         {
+             HttpClient client = new DefaultHttpClient();
+             final String url = "http://192.168.1.67:80/Select_Transaction.php";
+             client.execute(new HttpGet(url));
+         }
+         catch(Exception e)
+         {
+            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show(); 
+         }
+
+
+    }*/
 
 	
     void LoadGridHeader(){
@@ -174,7 +268,7 @@ public class TransactionsActivity extends Activity {
                 this.mapReservedWorkHeader.put("ItemCode", "Item ID");
                 this.mapReservedWorkHeader.put("ItemName", "User Name");
                 this.mapReservedWorkHeader.put("ItemSpecification", "Location Id Source");
-                this.mapReservedWorkHeader.put("TypeName", "Location Id Source");
+                this.mapReservedWorkHeader.put("TypeName", "Location Id Destination");
                 this.mapReservedWorkHeader.put("ItemDateCreated", "Transport Id");
                 this.mapReservedWorkHeader.put("CenterName", "Status");
                 this.mapReservedWorkHeader.put("SalleName", "Date Transaction");
@@ -190,31 +284,52 @@ public class TransactionsActivity extends Activity {
         }
     }
     
-    void LoadGridDetails(){
+    void LoadGridDetails(String strResult){
         try{
         	
         	this.adDetails = null;
-        	this.lstReservedWorkDetails.setAdapter(this.adDetails);
+        	
+        	runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					lstReservedWorkDetails.setAdapter(adDetails);
+				}
+			});
         	
             this.arrDetails = new ArrayList<HashMap<String, String>>();
             
-            for(int i = 0; i < this.transactionsList.size(); i++){
-             this.mapReservedWorkDetails = new HashMap<String, String>();
-             
-                 this.mapReservedWorkDetails.put("ItemCode", Integer.toString(this.transactionsList.get(i).getItemId()));
-                 this.mapReservedWorkDetails.put("ItemName", this.transactionsList.get(i).getUserName());
-                 this.mapReservedWorkDetails.put("SalleName", Integer.toString(this.transactionsList.get(i).getLocationIdSrc()));
-                 this.mapReservedWorkDetails.put("ItemSpecification", Integer.toString(this.transactionsList.get(i).getLocationIdDest()));
-                 this.mapReservedWorkDetails.put("TypeName", Integer.toString(this.transactionsList.get(i).getTransportId()));
-                 this.mapReservedWorkDetails.put("ItemDateCreated", this.transactionsList.get(i).getStatus());
-                 this.mapReservedWorkDetails.put("CenterName", this.transactionsList.get(i).getTransactionDateCreated());
-                 this.mapReservedWorkDetails.put("PersonnelName", "");
+            
+            String rows[] = strResult.split(";");
+            String col[];
+            for(int i = 0; i < rows.length - 1; i++){
+            	 col = rows[i].split(",");
+            	 this.mapReservedWorkDetails = new HashMap<String, String>();
+                 
+                 this.mapReservedWorkDetails.put("ItemCode", col[1]);
+                 this.mapReservedWorkDetails.put("ItemName", col[2]);
+                 this.mapReservedWorkDetails.put("ItemSpecification", col[3]);
+                 this.mapReservedWorkDetails.put("TypeName", col[4]);
+                 this.mapReservedWorkDetails.put("ItemDateCreated", col[5]);
+                 this.mapReservedWorkDetails.put("CenterName", col[6]);
+                 this.mapReservedWorkDetails.put("SalleName", col[7]);
+                 
              
       
              this.arrDetails.add(this.mapReservedWorkDetails);
             }
-            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.grid_template, new String[] {"LocationID", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
-            this.lstReservedWorkDetails.setAdapter(this.adDetails);
+            
+          
+            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.gridb_template, new String[] {"ItemCode", "ItemName", "ItemSpecification", "TypeName", "ItemDateCreated", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labItemCode, R.id.labItemName, R.id.labItemSpecification, R.id.labTypeName, R.id.labItemDateCreated, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
+			runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								lstReservedWorkDetails.setAdapter(adDetails);
+							}
+						});
     }
     catch(Exception e){
         e.printStackTrace();

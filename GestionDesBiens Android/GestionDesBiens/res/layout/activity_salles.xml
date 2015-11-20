@@ -9,7 +9,7 @@
     tools:context="com.android.gestiondesbiens.SallesActivity" >
 
     <ListView
-        android:id="@+id/lstReservedWorkHeader"
+        android:id="@+id/lstSallesHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,15 +17,15 @@
     </ListView>
 
     <ListView
-        android:id="@+id/lstReservedWorkDetails"
+        android:id="@+id/lstSallesDetails"
         android:layout_width="match_parent"
-        android:layout_below="@+id/lstReservedWorkHeader"
+        android:layout_below="@+id/lstSallesHeader"
         android:layout_height="wrap_content">
         </ListView>
         
      <Button
         android:id="@+id/btnNewSalle"
-        android:layout_width="wrap_content"
+         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
@@ -35,30 +35,21 @@
    
     <Button
         android:id="@+id/btnSaveSalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="29dp"
-        android:onClick="btnSaveSalle_Click"
-        android:text="Save" />
-   
-   <Button
-        android:id="@+id/btnEditSalle"
-        android:layout_width="wrap_content"
+         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/btnNewSalle"
         android:layout_marginLeft="20dp"
-        android:onClick="btnEditSalle_Click"
-        android:text="Edit" />
+        android:onClick="btnSaveSalle_Click"
+        android:text="Save" />
+   
    
    <Button
         android:id="@+id/btnDeleteSalle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnEditSalle"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnSaveSalle"
         android:layout_marginLeft="20dp"
         android:onClick="btnDeleteSalle_Click"
         android:text="Delete" />

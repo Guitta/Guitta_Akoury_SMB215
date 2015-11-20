@@ -15,13 +15,16 @@
         android:layout_centerHorizontal="true"
         android:background="@android:color/darker_gray" >
     </ListView>
+    
 
     <ListView
         android:id="@+id/lstCenterDetails"
         android:layout_width="match_parent"
-        android:layout_below="@+id/lstReservedWorkHeader"
+        android:layout_below="@+id/lstCenterHeader"
         android:layout_height="wrap_content">
         </ListView>
+
+    
         
    <Button
         android:id="@+id/btnNewCenter"
@@ -55,7 +58,7 @@
         android:text="Delete" />
    
    <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnNewCenter"
@@ -68,9 +71,9 @@
         android:id="@+id/txtCenterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBottom="@+id/textViewCenter"
         android:layout_marginLeft="44dp"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/textViewCenter"
         android:ems="10" >
 
         <requestFocus />

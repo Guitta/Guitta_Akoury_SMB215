@@ -107,7 +107,7 @@ public class GroupsActivity extends Activity {
             this.arrHeader = new ArrayList<HashMap<String, String>>();
             this.mapReservedWorkHeader = new HashMap<String, String>();
          
-                this.mapReservedWorkHeader.put("LocationID", "Description");
+ //               this.mapReservedWorkHeader.put("LocationID", "Description");
                 this.mapReservedWorkHeader.put("CenterName", "User name");
                 this.mapReservedWorkHeader.put("SalleName", "Group name");
                
@@ -132,7 +132,7 @@ public class GroupsActivity extends Activity {
             for(int i = 0; i < this.groupsList.size(); i++){
              this.mapReservedWorkDetails = new HashMap<String, String>();
              
-                 this.mapReservedWorkDetails.put("LocationID", this.groupsList.get(i).getDescription());
+                 this.mapReservedWorkDetails.put("LocationID", "");
                  this.mapReservedWorkDetails.put("CenterName", this.groupsList.get(i).getUsername());
                  this.mapReservedWorkDetails.put("SalleName", this.groupsList.get(i).getGroupname());
                  this.mapReservedWorkDetails.put("PersonnelName", "");

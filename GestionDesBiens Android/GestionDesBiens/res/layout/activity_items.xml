@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/lstReservedWorkHeader"
         android:layout_height="wrap_content">
-        </ListView>
+    </ListView>
 
 
 </RelativeLayout>

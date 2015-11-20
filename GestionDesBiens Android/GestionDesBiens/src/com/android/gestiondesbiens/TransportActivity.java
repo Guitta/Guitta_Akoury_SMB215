@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.android.gestiondesbiens.model.Personnel;
 import com.android.gestiondesbiens.model.Transport;
+import com.android.gestiondesbiens.parsers.PersonnelXMLParser;
 import com.android.gestiondesbiens.parsers.TransportXMLParser;
 
 import android.app.Activity;
@@ -15,16 +17,49 @@ import android.util.Log;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class TransportActivity extends Activity {
 	
 	List<Transport> transportList;
+	List<Personnel> personnelList;
 	List<MyTask> tasks;
+	EditText txtPersonnelName;
+	TextView tv;
+	Button bsave, bnew, bdelete;
+	Spinner sp;
+    String personnelName = null;
+    private String array_spinner[];
+
+    
+	
+	public void btnNewTransport_Click (View v){
+		
+		array_spinner = new String[personnelList.size()];
+		for (int i = 0; i < personnelList.size(); i++)
+		{
+			personnelName = personnelList.get(i).getPersonnelName();
+		    array_spinner[i] = personnelName;
+		    Log.i("array_spinner" + i, array_spinner[i]);
+		}
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
+		    android.R.layout.simple_spinner_item, array_spinner);
+		sp.setAdapter(adapter);
+		sp.setVisibility(View.VISIBLE);
+		tv.setVisibility(View.VISIBLE);
+
+	}
 	
 	private class MyTask extends AsyncTask<String, String, String> {
 
@@ -62,7 +97,7 @@ public class TransportActivity extends Activity {
 				return;
 			}
 			
-	
+				personnelList = PersonnelXMLParser.parseFeed(result);	
 				transportList = TransportXMLParser.parseFeed(result);
 	
 			LoadGridDetails();
@@ -88,9 +123,15 @@ public class TransportActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transport);
-
-		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
-		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
+		
+		tv=(TextView)findViewById(R.id.textViewTransport);
+		tv.setVisibility(View.GONE);
+		
+		sp=(Spinner)findViewById(R.id.spinPersonnel);
+		sp.setVisibility(View.GONE);
+		
+		this.lstHeader = (ListView)findViewById(R.id.lstTransportHeader);
+		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstTransportDetails);
 		tasks = new ArrayList<>();
 		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.transport");
 	}

@@ -49,7 +49,8 @@ public class CenterActivity extends Activity {
 		tv.setVisibility(View.VISIBLE);
 		txtCenterName.setVisibility(View.VISIBLE);
 		txtCenterName.requestFocus();
-
+		bnew.setEnabled(false);
+		bdelete.setEnabled(false);
 		
 	}
 	
@@ -93,7 +94,9 @@ public class CenterActivity extends Activity {
 					// TODO Auto-generated method stub
 					tv.setVisibility(View.GONE);
 					txtCenterName.setVisibility(View.GONE);
-
+					bnew.setEnabled(true);
+					bdelete.setEnabled(true);
+					
 					// refresh activity 
 					MyTask task = new MyTask();
 					task.execute("http://192.168.1.67:8080/GestionDesBiens/webresources/model.center");
@@ -170,9 +173,10 @@ public class CenterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_center);
+		
 		this.txtCenterName = (EditText)findViewById(R.id.txtCenterName);
 		txtCenterName.setVisibility(View.GONE);
-		this.tv=(TextView)findViewById(R.id.textView1);
+		this.tv=(TextView)findViewById(R.id.textViewCenter);
 		tv.setVisibility(View.GONE);
 		this.bsave=(Button) findViewById(R.id.btnSaveCenter);
 		

@@ -9,7 +9,7 @@
     tools:context="com.android.gestiondesbiens.UsersActivity" >
 
      <ListView
-        android:id="@+id/lstReservedWorkHeader"
+        android:id="@+id/lstUsersHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,11 +17,133 @@
     </ListView>
 
     <ListView
-        android:id="@+id/lstReservedWorkDetails"
+        android:id="@+id/lstUsersDetails"
         android:layout_width="match_parent"
-        android:layout_below="@+id/lstReservedWorkHeader"
+        android:layout_below="@+id/lstUsersHeader"
         android:layout_height="wrap_content">
-        </ListView>
+    </ListView>
 
+     <Button
+        android:id="@+id/btnNewUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="29dp"
+        android:onClick="btnNewUsers_Click"
+        android:text="New" />
+   
+     
+   <Button
+        android:id="@+id/btnSaveUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnNewUsers"
+        android:layout_marginLeft="20dp"
+        android:onClick="btnSaveUsers_Click"
+        android:text="Save" />
+   
+   <Button
+        android:id="@+id/btnDeleteUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnSaveUsers"
+        android:layout_marginLeft="20dp"
+        android:onClick="btnDeleteUsers_Click"
+        android:text="Delete" />
+   
+   <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnNewUsers"
+
+        android:layout_marginBottom="20dp"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+       
+  <EditText
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewName"
+        android:layout_marginLeft="44dp"
+        android:layout_toRightOf="@+id/textViewName"
+        android:ems="10">
+
+        <requestFocus />
+    </EditText>
+            
+ 	<TextView
+        android:id="@+id/textViewPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewName"
+
+        android:layout_marginBottom="15dp"
+        android:text="Password"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+       
+  <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewPwd"
+        android:layout_marginLeft="44dp"
+        android:layout_toRightOf="@+id/textViewPwd"
+        android:ems="10"
+        android:inputType="textPassword">
+        <requestFocus />
+      
+  </EditText>
+  
+  
+   <TextView
+        android:id="@+id/textViewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewPwd"
+        android:layout_marginBottom="15dp"
+        android:text="UserName"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+       
+  <EditText
+        android:id="@+id/txtUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewUser"
+        android:layout_marginLeft="44dp"
+        android:layout_toRightOf="@+id/textViewUser"
+        android:ems="10">
+        <requestFocus />
+      
+  </EditText>
+
+<RadioGroup 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_above="@+id/textViewUser"
+        android:layout_marginBottom="15dp">
+  <RadioButton
+      android:id="@+id/radioAdmin"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+    android:layout_above="@+id/textViewUser"
+        android:layout_marginBottom="15dp"
+      android:text="Admin" />
+  
+  <RadioButton
+      android:id="@+id/radioUser"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radioAdmin"
+        android:layout_marginLeft="44dp"
+        android:layout_toRightOf="@+id/radioAdmin"
+      android:text="User" />
+  </RadioGroup>
+  
 
 </RelativeLayout>

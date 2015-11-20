@@ -41,16 +41,14 @@ public class TypeActivity extends Activity {
 	List<MyTask> tasks;
 	EditText txtTypeName;
 	TextView tv;
-	Button bsave, bnew, bedit, bdelete;
+	Button bsave, bnew, bdelete;
 	
 	
 	public void btnNewType_Click(View v){
 		tv.setVisibility(View.VISIBLE);
 		txtTypeName.setVisibility(View.VISIBLE);
 		txtTypeName.requestFocus();
-		bsave.setVisibility(View.VISIBLE);
-		bnew.setVisibility(View.GONE);
-		bedit.setEnabled(false);
+		bnew.setEnabled(false);
 		bdelete.setEnabled(false);
 		
 	}
@@ -95,9 +93,7 @@ public class TypeActivity extends Activity {
 					// TODO Auto-generated method stub
 					tv.setVisibility(View.GONE);
 					txtTypeName.setVisibility(View.GONE);
-					bsave.setVisibility(View.GONE);
-					bnew.setVisibility(View.VISIBLE);
-					bedit.setEnabled(true);
+					bnew.setEnabled(true);
 					bdelete.setEnabled(true);
 					// refresh activity 
 					MyTask task = new MyTask();
@@ -173,18 +169,17 @@ public class TypeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_type);
+		
 		this.txtTypeName = (EditText)findViewById(R.id.txtTypeName);
 		txtTypeName.setVisibility(View.GONE);
 		this.tv=(TextView)findViewById(R.id.textViewType);
 		tv.setVisibility(View.GONE);
 		this.bsave=(Button) findViewById(R.id.btnSaveType);
-		bsave.setVisibility(View.GONE);
 		this.bnew=(Button) findViewById(R.id.btnNewType);
-		this.bedit=(Button) findViewById(R.id.btnEditType);
 		this.bdelete=(Button) findViewById(R.id.btnDeleteType);
 	
-		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
-		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
+		this.lstHeader = (ListView)findViewById(R.id.lstTypeHeader);
+		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstTypeDetails);
 		tasks = new ArrayList<>();
 		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.type");
 		

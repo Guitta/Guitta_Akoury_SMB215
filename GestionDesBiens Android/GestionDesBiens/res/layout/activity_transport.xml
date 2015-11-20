@@ -9,7 +9,7 @@
     tools:context="com.android.gestiondesbiens.TransportActivity" >
 
   <ListView
-        android:id="@+id/lstReservedWorkHeader"
+        android:id="@+id/lstTransportHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,10 +17,60 @@
     </ListView>
 
     <ListView
-        android:id="@+id/lstReservedWorkDetails"
+        android:id="@+id/lstTransportDetails"
         android:layout_width="match_parent"
-        android:layout_below="@+id/lstReservedWorkHeader"
+        android:layout_below="@+id/lstTransportHeader"
         android:layout_height="wrap_content">
-        </ListView>
+    </ListView>
+    
+           
+   <Button
+        android:id="@+id/btnNewTransport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="29dp"
+        android:onClick="btnNewTransport_Click"
+        android:text="New" />
+   
+     
+   <Button
+        android:id="@+id/btnSaveTransport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnNewTransport"
+        android:layout_marginLeft="20dp"
+        android:onClick="btnSaveTransport_Click"
+        android:text="Save" />
+   
+   <Button
+        android:id="@+id/btnDeleteTransport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnSaveTransport"
+        android:layout_marginLeft="20dp"
+        android:onClick="btnDeleteTransport_Click"
+        android:text="Delete" />
+   
+     <TextView
+        android:id="@+id/textViewTransport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnNewTransport"
+
+        android:layout_marginBottom="44dp"
+        android:text="Personnel name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+    <Spinner
+        android:id="@+id/spinPersonnel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewTransport"
+        android:layout_toRightOf="@+id/textViewTransport" />
+   
 
 </RelativeLayout>

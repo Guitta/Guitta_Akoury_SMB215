@@ -1,8 +1,17 @@
 package com.android.gestiondesbiens;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.android.gestiondesbiens.model.Personnel;
 
@@ -17,16 +26,91 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PersonnelActivity extends Activity {
 	
 	List<Personnel> personnelList;
 	List<MyTask> tasks;
+	EditText txtPersonnelName;
+	TextView tv;
+	Button bsave, bnew, bdelete;
 	
+	
+	public void btnNewPersonnel_Click(View v){
+		tv.setVisibility(View.VISIBLE);
+		txtPersonnelName.setVisibility(View.VISIBLE);
+		txtPersonnelName.requestFocus();
+		bnew.setEnabled(false);
+		bdelete.setEnabled(false);
+		
+	}
+	
+	public void btnSavePersonnel_Click(View v){
+		new Thread(new Runnable() {
+			
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				insertDeviceId();
+			}
+		}).start();
+	}
+	
+	   public void insertDeviceId()
+	    {
+	          InputStream is=null;
+	          String result=null;
+	          String line=null;
+	          int code;
+	          boolean res = false;
+	        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+	        if (txtPersonnelName.getText().toString().trim().equalsIgnoreCase("")){
+	        	txtPersonnelName.setError("Personnel name is required");
+	        } else{
+	        	nameValuePairs.add(new BasicNameValuePair("type_name", txtPersonnelName.getText().toString()));
+	        }
+	        try
+	        {
+	        	
+	            HttpClient httpclient = new DefaultHttpClient();
+	            HttpPost httppost = new HttpPost("http://192.168.1.67:80/Insert_Personnel.php");
+	            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	            HttpResponse response = httpclient.execute(httppost);
+
+	           runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv.setVisibility(View.GONE);
+					txtPersonnelName.setVisibility(View.GONE);
+					bnew.setEnabled(true);
+					bdelete.setEnabled(true);
+					
+					// refresh activity 
+					MyTask task = new MyTask();
+					task.execute("http://192.168.1.67:8080/GestionDesBiens/webresources/model.personnel");
+					 Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
+				}
+			});
+	            Log.e("pass 1", "connection success ");
+	        }
+	        catch(Exception e)
+	        {
+	            Log.e("Fail 1", e.toString());
+	        }   
+	    }
+	   
+	   
 	
 	private class MyTask extends AsyncTask<String, String, String> {
 
@@ -43,7 +127,7 @@ public class PersonnelActivity extends Activity {
 		@Override
 		protected String doInBackground(String... params) {
 			Log.w("params:", params[0]);
-			String content = HttpManager.getData(params[0], "feeduser", "feedpassword");
+			String content = HttpManager.getData(params[0]);
 			HttpManager hm = new HttpManager();
 			String data = hm.getData(params[0]);
 			//HttpManager
@@ -89,9 +173,18 @@ public class PersonnelActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personnel);
 	
-		setContentView(R.layout.activity_test);
-		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
-		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
+		this.txtPersonnelName = (EditText)findViewById(R.id.txtPersonnelName);
+		txtPersonnelName.setVisibility(View.GONE);
+		this.tv=(TextView)findViewById(R.id.textViewPersonnel);
+		tv.setVisibility(View.GONE);
+		this.bsave=(Button) findViewById(R.id.btnSavePersonnel);
+		
+		this.bnew=(Button) findViewById(R.id.btnNewPersonnel);
+		
+		this.bdelete=(Button) findViewById(R.id.btnDeletePersonnel);
+		
+		this.lstHeader = (ListView)findViewById(R.id.lstPersonnelHeader);
+		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstPersonnelDetails);
 		tasks = new ArrayList<>();
 		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.personnel");
 	}

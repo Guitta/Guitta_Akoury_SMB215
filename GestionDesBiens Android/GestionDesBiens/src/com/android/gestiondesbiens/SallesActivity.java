@@ -40,16 +40,14 @@ public class SallesActivity extends Activity {
 	List<MyTask> tasks;
 	EditText txtSalleName;
 	TextView tv;
-	Button bsave, bnew, bedit, bdelete;
+	Button bsave, bnew, bdelete;
 	
 	
 	public void btnNewSalle_Click(View v){
 		tv.setVisibility(View.VISIBLE);
 		txtSalleName.setVisibility(View.VISIBLE);
 		txtSalleName.requestFocus();
-		bsave.setVisibility(View.VISIBLE);
-		bnew.setVisibility(View.GONE);
-		bedit.setEnabled(false);
+		bnew.setEnabled(false);
 		bdelete.setEnabled(false);
 		
 	}
@@ -94,9 +92,7 @@ public class SallesActivity extends Activity {
 					// TODO Auto-generated method stub
 					tv.setVisibility(View.INVISIBLE);
 					txtSalleName.setVisibility(View.INVISIBLE);
-					bsave.setVisibility(View.INVISIBLE);
-					bnew.setVisibility(View.VISIBLE);
-					bedit.setEnabled(true);
+					bnew.setEnabled(true);
 					bdelete.setEnabled(true);
 					// refresh activity 
 					MyTask task = new MyTask();
@@ -172,19 +168,17 @@ public class SallesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_salles);
+		
 		this.txtSalleName = (EditText)findViewById(R.id.txtSalleName);
 		txtSalleName.setVisibility(View.GONE);
 		this.tv=(TextView)findViewById(R.id.textViewSalle);
 		tv.setVisibility(View.GONE);
 		this.bsave=(Button) findViewById(R.id.btnSaveSalle);
-		bsave.setVisibility(View.GONE);
 		this.bnew=(Button) findViewById(R.id.btnNewSalle);
-		this.bedit=(Button) findViewById(R.id.btnEditSalle);
 		this.bdelete=(Button) findViewById(R.id.btnDeleteSalle);
 	
-		//setContentView(R.layout.activity_test);
-		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
-		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
+		this.lstHeader = (ListView)findViewById(R.id.lstSallesHeader);
+		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstSallesDetails);
 		tasks = new ArrayList<>();
 		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.salle");
 	}

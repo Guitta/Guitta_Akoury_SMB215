@@ -9,7 +9,7 @@
     tools:context="com.android.gestiondesbiens.PersonnelActivity" >
 
    <ListView
-        android:id="@+id/lstReservedWorkHeader"
+        android:id="@+id/lstPersonnelHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,10 +17,64 @@
     </ListView>
 
     <ListView
-        android:id="@+id/lstReservedWorkDetails"
+        android:id="@+id/lstPersonnelDetails"
         android:layout_width="match_parent"
-        android:layout_below="@+id/lstReservedWorkHeader"
+        android:layout_below="@+id/lstPersonnelHeader"
         android:layout_height="wrap_content">
-        </ListView>
+    </ListView>
+        
+      <Button
+        android:id="@+id/btnNewPersonnel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="29dp"
+        android:onClick="btnNewPersonnel_Click"
+        android:text="New" />
+   
+     
+   <Button
+        android:id="@+id/btnSavePersonnel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnNewPersonnel"
+        android:layout_marginLeft="20dp"
+        android:onClick="btnSavePersonnel_Click"
+        android:text="Save" />
+   
+   <Button
+        android:id="@+id/btnDeletePersonnel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnSavePersonnel"
+        android:layout_marginLeft="20dp"
+        android:onClick="btnDeletePersonnel_Click"
+        android:text="Delete" />
+   
+   <TextView
+       android:id="@+id/textViewPersonnel"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/btnNewPersonnel"
+       android:layout_marginBottom="20dp"
+       android:text="Personnel name"
+       android:textAppearance="?android:attr/textAppearanceLarge" />
+       
+  <EditText
+        android:id="@+id/txtPersonnelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewPersonnel"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/textViewPersonnel"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+    
+    
 
 </RelativeLayout>
