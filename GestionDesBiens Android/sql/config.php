@@ -7,4 +7,13 @@ $mysql_db='GestionBiens';
 //mysql_select_db($mysql_db);
 
 $con=mysql_connect("$mysql_server", "$mysql_user", "$mysql_userpass")or die("cannot connect");
+
+
+$coni = new mysqli($mysql_server, $mysql_user, $mysql_userpass, $mysql_db);
+
 mysql_select_db("$mysql_db")or die("cannot select DB");
+
+
+?>
+
+

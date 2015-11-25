@@ -89,8 +89,8 @@ public class ItemsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_items);
 
-		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
-		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
+		this.lstHeader = (ListView)findViewById(R.id.lstItemsHeader);
+		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstItemsDetails);
 		tasks = new ArrayList<>();
 		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.item");
 	}
@@ -108,10 +108,10 @@ public class ItemsActivity extends Activity {
             this.arrHeader = new ArrayList<HashMap<String, String>>();
             this.mapReservedWorkHeader = new HashMap<String, String>();
          
-                this.mapReservedWorkHeader.put("ItemCode", "Item ID");
+                this.mapReservedWorkHeader.put("ItemCode", "Item Code");
                 this.mapReservedWorkHeader.put("ItemName", "Item Name");
                 this.mapReservedWorkHeader.put("ItemSpecification", "Item Specification");
-                this.mapReservedWorkHeader.put("TypeName", "TypeName");
+                this.mapReservedWorkHeader.put("TypeName", "Type");
                 this.mapReservedWorkHeader.put("ItemDateCreated", "Item Date Created");
                 this.mapReservedWorkHeader.put("CenterName", "Center Name");
                 this.mapReservedWorkHeader.put("SalleName", "Salle Name");
@@ -150,7 +150,7 @@ public class ItemsActivity extends Activity {
       
              this.arrDetails.add(this.mapReservedWorkDetails);
             }
-            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.grid_template, new String[] {"LocationID", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
+            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.gridb_template, new String[] {"ItemCode", "ItemName", "ItemSpecification", "TypeName", "ItemDateCreated", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labItemCode, R.id.labItemName, R.id.labItemSpecification, R.id.labTypeName, R.id.labItemDateCreated, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
             this.lstReservedWorkDetails.setAdapter(this.adDetails);
     }
     catch(Exception e){

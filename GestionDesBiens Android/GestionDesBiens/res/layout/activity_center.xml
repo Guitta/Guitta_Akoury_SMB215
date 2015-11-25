@@ -10,9 +10,10 @@
 
     <ListView
         android:id="@+id/lstCenterHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+  android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/btnNewCenter"
+    android:layout_centerHorizontal="true"
         android:background="@android:color/darker_gray" >
     </ListView>
     
@@ -28,58 +29,15 @@
         
    <Button
         android:id="@+id/btnNewCenter"
-        android:layout_width="wrap_content"
+ 		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="29dp"
+        android:layout_alignParentTop="true"
         android:onClick="btnNewCenter_Click"
         android:text="New" />
    
      
-   <Button
-        android:id="@+id/btnSaveCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnNewCenter"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnSaveCenter_Click"
-        android:text="Save" />
-   
-   <Button
-        android:id="@+id/btnDeleteCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnSaveCenter"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnDeleteCenter_Click"
-        android:text="Delete" />
-   
-   <TextView
-        android:id="@+id/textViewCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnNewCenter"
-
-        android:layout_marginBottom="44dp"
-        android:text="Center name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-       
-  <EditText
-        android:id="@+id/txtCenterName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewCenter"
-        android:layout_marginLeft="44dp"
-        android:layout_toRightOf="@+id/textViewCenter"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-    
-
-
+ 
 
 </RelativeLayout>

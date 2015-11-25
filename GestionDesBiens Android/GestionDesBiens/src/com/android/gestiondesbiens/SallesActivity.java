@@ -1,22 +1,8 @@
 package com.android.gestiondesbiens;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import com.android.gestiondesbiens.model.Salles;
-import com.android.gestiondesbiens.parsers.CenterXMLParser;
-import com.android.gestiondesbiens.parsers.LocationsXMLParser;
-import com.android.gestiondesbiens.parsers.SallesXMLParser;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,33 +12,33 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.gestiondesbiens.model.Salles;
+import com.android.gestiondesbiens.parsers.SallesXMLParser;
 
 public class SallesActivity extends Activity {
 	
 	List<Salles> sallesList;
 	List<MyTask> tasks;
 	EditText txtSalleName;
-	TextView tv;
-	Button bsave, bnew, bdelete;
+	
+	int intSalleID = 0;
 	
 	
 	public void btnNewSalle_Click(View v){
-		tv.setVisibility(View.VISIBLE);
-		txtSalleName.setVisibility(View.VISIBLE);
-		txtSalleName.requestFocus();
-		bnew.setEnabled(false);
-		bdelete.setEnabled(false);
-		
+		Intent I = new Intent(this, EditSalleDetails.class);
+		I.putExtra("salle_id", "0");
+		startActivity(I);
 	}
 	
-	public void btnSaveSalle_Click(View v){
+/**	public void btnSaveSalle_Click(View v){
 		new Thread(new Runnable() {
 			
 			
@@ -96,7 +82,7 @@ public class SallesActivity extends Activity {
 					bdelete.setEnabled(true);
 					// refresh activity 
 					MyTask task = new MyTask();
-					task.execute("http://192.168.1.67:8080/GestionDesBiens/webresources/model.salle");
+					task.execute("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.salle");
 					 Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
 				}
 			});
@@ -106,7 +92,7 @@ public class SallesActivity extends Activity {
 	        {
 	            Log.e("Fail 1", e.toString());
 	        }   
-	    }
+	    } **/
 	   
 	
 	private class MyTask extends AsyncTask<String, String, String> {
@@ -170,19 +156,51 @@ public class SallesActivity extends Activity {
 		setContentView(R.layout.activity_salles);
 		
 		this.txtSalleName = (EditText)findViewById(R.id.txtSalleName);
-		txtSalleName.setVisibility(View.GONE);
-		this.tv=(TextView)findViewById(R.id.textViewSalle);
-		tv.setVisibility(View.GONE);
-		this.bsave=(Button) findViewById(R.id.btnSaveSalle);
-		this.bnew=(Button) findViewById(R.id.btnNewSalle);
-		this.bdelete=(Button) findViewById(R.id.btnDeleteSalle);
+
 	
 		this.lstHeader = (ListView)findViewById(R.id.lstSallesHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstSallesDetails);
 		tasks = new ArrayList<>();
-		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.salle");
+		LoadGridHeader();
+		
+		this.requestData();
+
+		this.lstReservedWorkDetails
+				.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Intent I = new Intent(getApplicationContext(), EditSalleDetails.class);
+						I.putExtra("salle_id", arrDetails.get(position).get("SalleID"));
+
+						I.putExtra("salle_name", arrDetails.get(position).get("SalleName"));
+
+						startActivity(I);
+					}
+				});
+		
+		new Thread() {
+			public void run() {
+				
+				//LoadGridDetails();
+				while (true) {
+					if (blnReloadGrid) {
+						requestData();
+						blnReloadGrid = false;
+					}
+				}
+
+			}
+		}.start();
 	}
+
+	public static boolean blnReloadGrid = false;
 	
+	void requestData(){
+		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.salle");
+	}
+
 	private void requestData(String uri) {
 		MyTask task = new MyTask();
 		task.execute(uri);
@@ -196,10 +214,11 @@ public class SallesActivity extends Activity {
             this.arrHeader = new ArrayList<HashMap<String, String>>();
             this.mapReservedWorkHeader = new HashMap<String, String>();
             
-                this.mapReservedWorkHeader.put("SalleName", "Salle name");
+            this.mapReservedWorkHeader.put("SalleID", "Salle Id");    
+            this.mapReservedWorkHeader.put("SalleName", "Salle name");
             
             this.arrHeader.add(this.mapReservedWorkHeader);
-            this.adHeader = new SimpleAdapter(this, arrHeader, R.layout.grid_template, new String[] {"LocationID", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
+            this.adHeader = new SimpleAdapter(this, arrHeader, R.layout.grid_template, new String[] {"SalleID", "SalleName"}, new int[] {R.id.labLocationID, R.id.labCenterName});
             this.lstHeader.setAdapter(this.adHeader);
         }
         catch(Exception e){
@@ -218,15 +237,14 @@ public class SallesActivity extends Activity {
             for(int i = 0; i < this.sallesList.size(); i++){
              this.mapReservedWorkDetails = new HashMap<String, String>();
              
-                 this.mapReservedWorkDetails.put("LocationID", "");
-                 this.mapReservedWorkDetails.put("CenterName", this.sallesList.get(i).getSalleName());
-                 this.mapReservedWorkDetails.put("SalleName", "");
-                 this.mapReservedWorkDetails.put("PersonnelName", "");
+				this.mapReservedWorkDetails.put("SalleID", Integer.toString(this.sallesList.get(i).getSalleId()));
+                 this.mapReservedWorkDetails.put("SalleName", this.sallesList.get(i).getSalleName());
+               
              
 
              this.arrDetails.add(this.mapReservedWorkDetails);
             }
-            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.grid_template, new String[] {"LocationID", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
+            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.grid_template, new String[] {"SalleID", "SalleName"}, new int[] {R.id.labLocationID, R.id.labCenterName});
             this.lstReservedWorkDetails.setAdapter(this.adDetails);
     }
     catch(Exception e){

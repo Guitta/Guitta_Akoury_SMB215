@@ -91,7 +91,7 @@ public class LocationsActivity extends Activity {
 		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
 		tasks = new ArrayList<>();
-		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.location");
+		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.location");
 	}
 	
 	private void requestData(String uri) {

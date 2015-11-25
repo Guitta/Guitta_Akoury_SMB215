@@ -9,7 +9,7 @@
     tools:context="com.android.gestiondesbiens.ItemsActivity" >
 
   <ListView
-        android:id="@+id/lstReservedWorkHeader"
+        android:id="@+id/lstItemsHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,9 +17,9 @@
     </ListView>
 
     <ListView
-        android:id="@+id/lstReservedWorkDetails"
+        android:id="@+id/lstItemsDetails"
         android:layout_width="match_parent"
-        android:layout_below="@+id/lstReservedWorkHeader"
+        android:layout_below="@+id/lstItemsHeader"
         android:layout_height="wrap_content">
     </ListView>
 

@@ -1,32 +1,21 @@
 package com.android.gestiondesbiens;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
-import com.android.gestiondesbiens.model.Transactions;
-import com.android.gestiondesbiens.parsers.TransactionsXMLParser;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,63 +26,13 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.android.gestiondesbiens.model.Transactions;
+
 
 public class TransactionsActivity extends Activity {
 	
 	List<Transactions> transactionsList;
-//	List<MyTask> tasks;
-	
-/*	private class MyTask extends AsyncTask<String, String, String> {
-		
-		 
 
-		@Override
-		protected void onPreExecute() {
-//			updateDisplay("Starting task");
-			
-			if (tasks.size() == 0) {
-				//pb.setVisibility(View.VISIBLE);
-			}
-			tasks.add(this);
-		}
-		
-		@Override
-		protected String doInBackground(String... params) {
-			Log.w("params:", params[0]);
-			String content = HttpManager.getData(params[0]);
-			HttpManager hm = new HttpManager();
-			String data = hm.getData(params[0]);
-			//HttpManager
-			System.out.println("RESULT === "+data);
-			return data;
-		}
-		
-		@Override
-		protected void onPostExecute(String result) {
-			
-			tasks.remove(this);
-			if (tasks.size() == 0) {
-				//pb.setVisibility(View.INVISIBLE);
-			}
-			
-			if (result == null) {
-				Toast.makeText(getApplicationContext(), "Web service not available", Toast.LENGTH_LONG).show();
-				return;
-			}
-			
-	
-			transactionsList = TransactionsXMLParser.parseFeed(result);
-	
-			LoadGridDetails();
-			}
-
-			
-		@Override
-		protected void onProgressUpdate(String... values) {
-//			updateDisplay(values[0]);
-		}
-		
-	}*/
 	
 	ArrayList<HashMap<String, String>> arrHeader, arrDetails;
 	HashMap<String, String> mapReservedWorkHeader, mapReservedWorkDetails;
@@ -105,7 +44,9 @@ public class TransactionsActivity extends Activity {
 
 	
 	public void btnNewTransaction_Click(View v){
-		
+		Intent I = new Intent(this, EditTransactionDetails.class);
+		I.putExtra("transaction_id", "0");
+		startActivity(I);
 	}
 	
 	public void btnSaveTransaction_Click(View v){
@@ -117,7 +58,7 @@ public class TransactionsActivity extends Activity {
 		        try
 		        {
 		        	 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		            nameValuePairs.add(new BasicNameValuePair("item_id","1"));
+		        	 nameValuePairs.add(new BasicNameValuePair("item_id","1"));
 		             nameValuePairs.add(new BasicNameValuePair("username", ClsUser.CONNECTED_USER_NAME));
 		             nameValuePairs.add(new BasicNameValuePair("location_id_src", "2"));
 		             nameValuePairs.add(new BasicNameValuePair("location_id_dest", "1"));
@@ -148,9 +89,7 @@ public class TransactionsActivity extends Activity {
 		}).start();
 	}
 	
-	public void btnDeleteTransaction_Click(View v){
-		
-	}
+
 
 
 	@Override
@@ -171,91 +110,41 @@ public class TransactionsActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
+				Intent I = new Intent(getApplicationContext(), EditTransactionDetails.class);
+				I.putExtra("transaction_id", arrDetails.get(position).get("transaction_id"));
+				I.putExtra("item_id", arrDetails.get(position).get("ItemCode"));
+				I.putExtra("username", arrDetails.get(position).get("ItemName"));
+				I.putExtra("location_id_src", arrDetails.get(position).get("ItemSpecification"));
+				I.putExtra("location_id_dest", arrDetails.get(position).get("TypeName"));
+				I.putExtra("transport_id", arrDetails.get(position).get("ItemDateCreated"));
+				I.putExtra("status", arrDetails.get(position).get("CenterName"));
+				I.putExtra("transaction_date", arrDetails.get(position).get("SalleName"));
 				
+				startActivity(I);
 			}
 		});
-		
 		new Thread() {
 		    public void run(){
-		        //phpRequest();
-		    	insertDeviceId();
+		    	LoadGridDetails();
+		    	while(true){
+		    		if(blnReloadGrid){
+		    			LoadGridDetails();
+				    	blnReloadGrid = false;
+		    		}
+		    	}
+		    	
 		    }
 		}.start();
+
 	}
+	public static boolean blnReloadGrid = false;
 	
-	/*private void requestData(String uri) {
-		MyTask task = new MyTask();
-		task.execute(uri);
-	}*/
-	
-	  public boolean insertDeviceId()
+	  public  void LoadGridDetails()
 	    {
-	          InputStream is=null;
-	          String result=null;
-	          String line=null;
-	          String code;
-	          boolean res = false;
-	      /*  ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-	        nameValuePairs.add(new BasicNameValuePair("deviceId",deviceId));
-	        nameValuePairs.add(new BasicNameValuePair("onlineUserId", String.valueOf(onlineUserId)));*/
-	       
-	        try
-	        {
-	            HttpClient httpclient = new DefaultHttpClient();
-	            HttpPost httppost = new HttpPost("http://192.168.1.67:80/Select_Transaction.php");
-	           // httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	            HttpResponse response = httpclient.execute(httppost);
-	            HttpEntity entity = response.getEntity();
-	            is = entity.getContent();
-	            Log.e("pass 1", "connection success ");
-	        }
-	        catch(Exception e)
-	        {
-	            Log.e("Fail 1", e.toString());
-	        }        
-	       
-	        
-	        try
-	        {
-	            BufferedReader reader = new BufferedReader (new InputStreamReader(is,"iso-8859-1"),8);
-	            StringBuilder sb = new StringBuilder();
-	            while ((line = reader.readLine()) != null)
-	            {
-	                sb.append(line + "\n");
-	            }
-	            is.close();
-	            result = sb.toString();
-	            LoadGridDetails(result);
-	        Log.e("pass 2", "connection success ");
-	        }
-	        catch(Exception e)
-	        {
-	            Log.e("Fail 2", e.toString());
-	        }    
-	      
-	        return res;
+		  String result = PhpScriptExecuter.getDataFromPhpScript("Select_Transaction.php");
+          LoadGridDetails(result);
 	    }
 
-
-
-	
-	/*public void phpRequest()
-    {
-
-         try
-         {
-             HttpClient client = new DefaultHttpClient();
-             final String url = "http://192.168.1.67:80/Select_Transaction.php";
-             client.execute(new HttpGet(url));
-         }
-         catch(Exception e)
-         {
-            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show(); 
-         }
-
-
-    }*/
 
 	
     void LoadGridHeader(){
@@ -284,10 +173,10 @@ public class TransactionsActivity extends Activity {
         }
     }
     
-    void LoadGridDetails(String strResult){
+     void LoadGridDetails(String strResult){
         try{
         	
-        	this.adDetails = null;
+        	adDetails = null;
         	
         	runOnUiThread(new Runnable() {
 				
@@ -307,6 +196,7 @@ public class TransactionsActivity extends Activity {
             	 col = rows[i].split(",");
             	 this.mapReservedWorkDetails = new HashMap<String, String>();
                  
+            	 this.mapReservedWorkDetails.put("transaction_id", col[0]);
                  this.mapReservedWorkDetails.put("ItemCode", col[1]);
                  this.mapReservedWorkDetails.put("ItemName", col[2]);
                  this.mapReservedWorkDetails.put("ItemSpecification", col[3]);

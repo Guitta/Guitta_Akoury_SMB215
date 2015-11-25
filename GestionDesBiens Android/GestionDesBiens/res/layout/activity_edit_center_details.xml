@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.android.gestiondesbiens.EditCenterDetails" >
+
+    <EditText
+        android:id="@+id/txtCenterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewCenter"
+        android:layout_toRightOf="@+id/textViewCenter"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/btnSaveCenter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewCenter"
+        android:layout_below="@+id/txtCenterName"
+        android:layout_marginTop="50dp"
+        android:onClick="btnSaveCenter_Click"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/btnDeleteCenter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnSaveCenter"
+        android:layout_below="@+id/btnSaveCenter"
+        android:onClick="btnDeleteCenter_Click"
+        android:text="Delete" />
+
+    <TextView
+        android:id="@+id/textViewCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:text="Center name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+</RelativeLayout>

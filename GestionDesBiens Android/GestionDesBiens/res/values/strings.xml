@@ -18,9 +18,9 @@
     <string name="location_name_placeholder">Location name</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login">Gestion Des Biens</string>
     <string name="title_activity_php_script_test">PhpScriptTest</string>
-    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_admin">Admin Activity</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="hello_user">Hello User!</string>
     <string name="title_activity_center">Centers</string>
@@ -34,6 +34,17 @@
     <string name="title_activity_transport">Transport</string>
     <string name="title_activity_transactions">Transactions</string>
     <string name="title_activity_items">Items</string>
-    <string name="title_activity_user_transaction">UserTransaction</string>
+    <string name="title_activity_user_transaction">Users Transactions</string>
+    <string name="title_activity_edit_transaction_details">EditTransactionDetails</string>
+
+    <string-array name="TransactionStatus">
+        <item>Delivered</item>
+        <item>Not delivered</item>
+    </string-array>
+
+    <string name="title_activity_edit_center_details">EditCenterDetails</string>
+    <string name="title_activity_edit_item_details">Edit Item Details</string>
+    <string name="title_activity_edit_salle_details">Edit Salle Details</string>
+    <string name="title_activity_edit_type_details">Edit Type Details</string>
 
 </resources>

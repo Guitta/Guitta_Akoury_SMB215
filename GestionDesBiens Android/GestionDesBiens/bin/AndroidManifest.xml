@@ -31,11 +31,6 @@
         <activity
             android:name=".TestActivity"
             android:label="@string/title_activity_test" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -49,11 +44,6 @@
         <activity
             android:name=".PhpScriptTest"
             android:label="@string/title_activity_php_script_test" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".AdminActivity"
@@ -104,6 +94,26 @@
         <activity
             android:name=".UserTransactionActivity"
             android:label="@string/title_activity_user_transaction" >
+        </activity>
+        <activity
+            android:name=".EditTransactionDetails"
+            android:label="@string/title_activity_edit_transaction_details" >
+        </activity>
+        <activity
+            android:name=".EditCenterDetails"
+            android:label="@string/title_activity_edit_center_details" >
+        </activity>
+        <activity
+            android:name=".EditItemDetails"
+            android:label="@string/title_activity_edit_item_details" >
+        </activity>
+        <activity
+            android:name=".EditSalleDetails"
+            android:label="@string/title_activity_edit_salle_details" >
+        </activity>
+        <activity
+            android:name=".EditTypeDetails"
+            android:label="@string/title_activity_edit_type_details" >
         </activity>
     </application>
 

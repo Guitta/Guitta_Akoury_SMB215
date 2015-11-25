@@ -98,7 +98,7 @@ public class PersonnelActivity extends Activity {
 					
 					// refresh activity 
 					MyTask task = new MyTask();
-					task.execute("http://192.168.1.67:8080/GestionDesBiens/webresources/model.personnel");
+					task.execute("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.personnel");
 					 Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
 				}
 			});

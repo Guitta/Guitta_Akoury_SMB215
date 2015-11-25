@@ -12,6 +12,7 @@
         android:id="@+id/lstSallesHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/btnNewSalle"
         android:layout_centerHorizontal="true"
         android:background="@android:color/darker_gray" >
     </ListView>
@@ -25,56 +26,15 @@
         
      <Button
         android:id="@+id/btnNewSalle"
-         android:layout_width="wrap_content"
+   	android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="29dp"
+        android:layout_alignParentTop="true"
         android:onClick="btnNewSalle_Click"
         android:text="New" />
    
-    <Button
-        android:id="@+id/btnSaveSalle"
-         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnNewSalle"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnSaveSalle_Click"
-        android:text="Save" />
-   
-   
-   <Button
-        android:id="@+id/btnDeleteSalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnSaveSalle"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnDeleteSalle_Click"
-        android:text="Delete" />
-   
-   <TextView
-        android:id="@+id/textViewSalle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnNewSalle"
-
-        android:layout_marginBottom="44dp"
-        android:text="Salle name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-       
-  <EditText
-        android:id="@+id/txtSalleName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewSalle"
-        android:layout_marginLeft="44dp"
-        android:layout_toRightOf="@+id/textViewSalle"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
+ 
 
 
 </RelativeLayout>
