@@ -1,7 +1,7 @@
 # Guitta_Akoury_SMB215
 Notre projet, développé par Hayat Bourgi et moi, est composé de 4 applications : 
 
-1- GestionDesBiens : une application web développée sous NetBeans, cette application gère les biens d'une société ou d'une organisation, le CNAM par exemple. 
+1- GestionDesBiens - Web Application : une application web développée sous NetBeans, cette application gère les biens d'une société ou d'une organisation, le CNAM par exemple.
 Cette application traite la traçabilité interne et externe, la place de chaque bien est visible pour l'administrateur/utilisateur du système: la traçabilité interne : Centre, salle, personnel. La traçabilité externe : traçabilité du bien en cours du transport, d'un centre à l'autre par exemple.
 
 L'application est sécurisée par la configuration d'un realm JDBC (l'authentification dans GlassFish)faisant référence à la base données MySQL contenant les tables d'authentification des utilisateurs. Des services web (RESTful Web Services) sont créés. A partir de ces services les opérations du CRUD sont programmées pour accéder aux différentes tables de la base de données à partir des services web et non pas des entités (Pages from entity classes). Les rapports sont générés en pdf en utilisant le "jspdf" plugin. Un QRCode est généré par item, pour référencer un item unique. 
@@ -10,4 +10,4 @@ L'application est sécurisée par la configuration d'un realm JDBC (l'authentifi
 
 3- MyMap : une application android développée sous android studio, cette application permet de positionner l'item sur une carte géographique (map) sur un mobile android en se servant des coordonnées déjà enregistrées sous parse.com en vue d'assurer la traçabilité externe du bien.
 
-4- GestionDesBiens : une application android  développée sous eclipse qui a les mêmes fonctions que l'application web qui porte le même nom (application 1) mais en version mobile. Cette application utilise aussi les services web restful, XML parsers, et des queries assurant les fonctions du CRUD. Application est sécurisée par un nom d'utilisateur et un mot de passe permetant d'appliquer les permissions en orientant l'utilisateur connecté vers la page adéquate (page administrateur, page utilisateur) en se servant de l'adresse publique du service web pointant vers les tables users et groupe.
+4- GestionDesBiens - Android app : une application android  développée sous eclipse qui a les mêmes fonctions que l'application web qui porte le même nom (application 1) mais en version mobile. Cette application utilise aussi les services web restful, XML parsers, et des queries assurant les fonctions du CRUD. Application est sécurisée par un nom d'utilisateur et un mot de passe permetant d'appliquer les permissions en orientant l'utilisateur connecté vers la page adéquate (page administrateur, page utilisateur) en se servant de l'adresse publique du service web pointant vers les tables users et groupe.
