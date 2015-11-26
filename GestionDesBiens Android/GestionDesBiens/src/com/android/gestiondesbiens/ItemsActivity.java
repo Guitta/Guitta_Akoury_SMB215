@@ -12,9 +12,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -25,6 +27,8 @@ public class ItemsActivity extends Activity {
 	
 	List<Items> itemsList;
 	List<MyTask> tasks;
+	
+	public static boolean blnReloadGrid = false;
 	
 	private class MyTask extends AsyncTask<String, String, String> {
 
@@ -82,7 +86,11 @@ public class ItemsActivity extends Activity {
 	
 	ListView lstHeader, lstReservedWorkDetails;
 
-	
+	public void btnNewItem_Click(View v){
+		Intent I = new Intent(getApplicationContext(), EditItemDetails.class);
+		I.putExtra("item_id", "0");
+		startActivity(I);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +100,37 @@ public class ItemsActivity extends Activity {
 		this.lstHeader = (ListView)findViewById(R.id.lstItemsHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstItemsDetails);
 		tasks = new ArrayList<>();
-		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.item");
+		this.RequestDataItems();
+		
+		this.LoadGridHeader();
+		
+		this.lstReservedWorkDetails.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent I = new Intent(getApplicationContext(), EditItemDetails.class);
+				I.putExtra("item_id", arrDetails.get(position).get("item_id"));
+				startActivity(I);
+			}
+		});
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+		    	while(true){
+		    		if(blnReloadGrid){
+		    			blnReloadGrid = false;
+		    			RequestDataItems();
+		    		}
+		    	}
+			}
+		}).start();
+	}
+	
+	void RequestDataItems(){
+		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.item");
 	}
 	
 	private void requestData(String uri) {
@@ -129,7 +167,6 @@ public class ItemsActivity extends Activity {
     
     void LoadGridDetails(){
         try{
-        	this.LoadGridHeader();
         	this.adDetails = null;
         	this.lstReservedWorkDetails.setAdapter(this.adDetails);
         	
@@ -138,14 +175,15 @@ public class ItemsActivity extends Activity {
             for(int i = 0; i < this.itemsList.size(); i++){
              this.mapReservedWorkDetails = new HashMap<String, String>();
              
-                 this.mapReservedWorkDetails.put("ItemCode", this.itemsList.get(i).getItemCode());
-                 this.mapReservedWorkDetails.put("ItemName", this.itemsList.get(i).getItemName());
-                 this.mapReservedWorkDetails.put("ItemSpecification", this.itemsList.get(i).getItemSpecification());
-                 this.mapReservedWorkDetails.put("TypeName", this.itemsList.get(i).getTypeName());
-                 this.mapReservedWorkDetails.put("ItemDateCreated", this.itemsList.get(i).getItemDateCreated());
-                 this.mapReservedWorkDetails.put("CenterName", this.itemsList.get(i).getCenterName());
-                 this.mapReservedWorkDetails.put("SalleName", this.itemsList.get(i).getSalleName());
-                 this.mapReservedWorkDetails.put("PersonnelName", this.itemsList.get(i).getPersonnelName());
+             this.mapReservedWorkDetails.put("item_id", Integer.toString(this.itemsList.get(i).getItemId()));
+             this.mapReservedWorkDetails.put("ItemCode", this.itemsList.get(i).getItemCode());
+             this.mapReservedWorkDetails.put("ItemName", this.itemsList.get(i).getItemName());
+             this.mapReservedWorkDetails.put("ItemSpecification", this.itemsList.get(i).getItemSpecification());
+             this.mapReservedWorkDetails.put("TypeName", this.itemsList.get(i).getTypeName());
+             this.mapReservedWorkDetails.put("ItemDateCreated", this.itemsList.get(i).getItemDateCreated());
+             this.mapReservedWorkDetails.put("CenterName", this.itemsList.get(i).getCenterName());
+             this.mapReservedWorkDetails.put("SalleName", this.itemsList.get(i).getSalleName());
+             this.mapReservedWorkDetails.put("PersonnelName", this.itemsList.get(i).getPersonnelName());
              
       
              this.arrDetails.add(this.mapReservedWorkDetails);
@@ -201,7 +239,7 @@ public class ItemsActivity extends Activity {
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transations) {
-			Intent I = new Intent(getApplicationContext(), TransactionsActivity.class);
+			Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transport) {

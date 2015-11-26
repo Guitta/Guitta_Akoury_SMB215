@@ -12,6 +12,7 @@
         android:id="@+id/lstTypeHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+         android:layout_below="@+id/btnNewType"
         android:layout_centerHorizontal="true"
         android:background="@android:color/darker_gray" >
     </ListView>
@@ -25,56 +26,14 @@
 
     <Button
         android:id="@+id/btnNewType"
-      android:layout_width="wrap_content"
+  		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="29dp"
+        android:layout_alignParentTop="true"
         android:onClick="btnNewType_Click"
         android:text="New" />
    
-    <Button
-        android:id="@+id/btnSaveType"
-   android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnNewType"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnSaveType_Click"
-        android:text="Save" />
-   
-
-   <Button
-        android:id="@+id/btnDeleteType"
-      android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnSaveType"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnDeleteType_Click"
-        android:text="Delete" />
-   
-   <TextView
-        android:id="@+id/textViewType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnNewType"
-
-        android:layout_marginBottom="44dp"
-        android:text="Type name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-       
-  <EditText
-        android:id="@+id/txtTypeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewType"
-        android:layout_marginLeft="44dp"
-        android:layout_toRightOf="@+id/textViewType"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-    
+     
     
 </RelativeLayout>

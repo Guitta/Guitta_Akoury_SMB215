@@ -1,7 +1,5 @@
 package com.android.gestiondesbiens;
 
-import org.apache.http.message.BasicNameValuePair;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -61,10 +59,10 @@ public void btnSaveCenter_Click(View v){
 	}
 	
 	public void btnDeleteCenter_Click(View v){
-		this.ConfirmDeleteTransaction();
+		this.ConfirmDeleteCenter();
 	}
 	
-	private void ConfirmDeleteTransaction() {
+	private void ConfirmDeleteCenter() {
     	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
     	    @Override
     	    public void onClick(DialogInterface dialog, int which) {

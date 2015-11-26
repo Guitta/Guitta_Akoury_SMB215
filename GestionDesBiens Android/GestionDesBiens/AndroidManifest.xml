@@ -82,7 +82,7 @@
             android:label="@string/title_activity_transport" >
         </activity>
         <activity
-            android:name=".TransactionsActivity"
+            android:name=".UserTransactionsActivity"
             android:label="@string/title_activity_transactions"
             android:screenOrientation="landscape" >
         </activity>
@@ -114,6 +114,22 @@
         <activity
             android:name=".EditTypeDetails"
             android:label="@string/title_activity_edit_type_details" >
+        </activity>
+        <activity
+            android:name=".EditLocationDetails"
+            android:label="@string/title_activity_edit_location_details" >
+        </activity>
+        <activity
+            android:name=".EditTransportDetails"
+            android:label="@string/title_activity_edit_transport_details" >
+        </activity>
+        <activity
+            android:name=".EditPersonnelDetails"
+            android:label="@string/title_activity_edit_personnel_details" >
+        </activity>
+        <activity
+            android:name=".EditUserTransactionDetails"
+            android:label="@string/title_activity_edit_user_transaction_details" >
         </activity>
     </application>
 

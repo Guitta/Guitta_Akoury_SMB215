@@ -12,9 +12,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 
 public class LocationsActivity extends Activity {
 	
+	public static boolean blnReloadGrid = false;
 	List<Locations> locationsList;
 	List<MyTask> tasks;
 	
@@ -82,6 +85,11 @@ public class LocationsActivity extends Activity {
 	
 	ListView lstHeader, lstReservedWorkDetails;
 
+	public void btnNewLocation_Click(View v){
+		Intent I = new Intent(this, EditLocationDetails.class);
+		I.putExtra("location_id", "0");
+		startActivity(I);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +99,36 @@ public class LocationsActivity extends Activity {
 		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
 		tasks = new ArrayList<>();
+		
+		this.lstReservedWorkDetails.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent I = new Intent(getApplicationContext(), EditLocationDetails.class);
+				I.putExtra("location_id", arrDetails.get(position).get("LocationID"));
+				startActivity(I);
+			}
+		});
+		
+		this.RequestLocationData();
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+		    	while(true){
+		    		if(blnReloadGrid){
+		    			RequestLocationData();
+				    	blnReloadGrid = false;
+		    		}
+		    	}
+			}
+		}).start();
+		
+	}
+	
+	void RequestLocationData(){
 		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.location");
 	}
 	
@@ -191,7 +229,7 @@ public class LocationsActivity extends Activity {
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transations) {
-			Intent I = new Intent(getApplicationContext(), TransactionsActivity.class);
+			Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transport) {

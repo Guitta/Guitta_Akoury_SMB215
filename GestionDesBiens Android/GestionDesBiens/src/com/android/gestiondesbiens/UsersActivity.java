@@ -13,18 +13,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.android.gestiondesbiens.model.Users;
-import com.android.gestiondesbiens.parsers.UsersXMLParser;
-
-import com.google.common.base.Charsets;
-import com.google.common.hash.Hashing;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +29,11 @@ import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.gestiondesbiens.model.Users;
+import com.android.gestiondesbiens.parsers.UsersXMLParser;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 
 
 public class UsersActivity extends Activity {
@@ -114,7 +112,7 @@ public class UsersActivity extends Activity {
 			        {
 			        	
 			            HttpClient httpclient = new DefaultHttpClient();
-			            HttpPost httppost = new HttpPost("http://192.168.1.67:80/Insert_Users.php");
+			            HttpPost httppost = new HttpPost("http://" + ClsCommon.SERVER_IP.split(":")[0] + "/Insert_Users.php");
 			            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			            HttpResponse response = httpclient.execute(httppost);
 		
@@ -243,7 +241,7 @@ public class UsersActivity extends Activity {
 		this.lstHeader = (ListView)findViewById(R.id.lstUsersHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstUsersDetails);
 		tasks = new ArrayList<>();
-		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.users");
+		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.users");
 	}
 	
 	private void requestData(String uri) {
@@ -343,7 +341,7 @@ public class UsersActivity extends Activity {
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transations) {
-			Intent I = new Intent(getApplicationContext(), TransactionsActivity.class);
+			Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transport) {

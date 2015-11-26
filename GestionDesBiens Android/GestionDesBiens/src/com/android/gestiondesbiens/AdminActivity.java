@@ -10,16 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import android.content.res.Resources;
-import android.widget.Button;
-import android.graphics.drawable.StateListDrawable;
-
 
 public class AdminActivity extends Activity {
 	
 	
 	public void btnTransactions_Click(View v){
-		Intent I = new Intent(getApplicationContext(), TransactionsActivity.class);
+		Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 		startActivity(I);		
 	}
 	

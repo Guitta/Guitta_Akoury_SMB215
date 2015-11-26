@@ -1,23 +1,8 @@
 package com.android.gestiondesbiens;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import com.android.gestiondesbiens.model.Personnel;
-
-import com.android.gestiondesbiens.parsers.CenterXMLParser;
-import com.android.gestiondesbiens.parsers.LocationsXMLParser;
-import com.android.gestiondesbiens.parsers.PersonnelXMLParser;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,90 +12,34 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.gestiondesbiens.model.Personnel;
+import com.android.gestiondesbiens.parsers.PersonnelXMLParser;
 
 public class PersonnelActivity extends Activity {
 	
 	List<Personnel> personnelList;
 	List<MyTask> tasks;
 	EditText txtPersonnelName;
-	TextView tv;
-	Button bsave, bnew, bdelete;
+
+	int intPersonnelID = 0;
+
 	
 	
 	public void btnNewPersonnel_Click(View v){
-		tv.setVisibility(View.VISIBLE);
-		txtPersonnelName.setVisibility(View.VISIBLE);
-		txtPersonnelName.requestFocus();
-		bnew.setEnabled(false);
-		bdelete.setEnabled(false);
-		
+		Intent I = new Intent(this, EditPersonnelDetails.class);
+		I.putExtra("personnel_id", "0");
+		startActivity(I);
 	}
 	
-	public void btnSavePersonnel_Click(View v){
-		new Thread(new Runnable() {
-			
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				insertDeviceId();
-			}
-		}).start();
-	}
-	
-	   public void insertDeviceId()
-	    {
-	          InputStream is=null;
-	          String result=null;
-	          String line=null;
-	          int code;
-	          boolean res = false;
-	        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-	        if (txtPersonnelName.getText().toString().trim().equalsIgnoreCase("")){
-	        	txtPersonnelName.setError("Personnel name is required");
-	        } else{
-	        	nameValuePairs.add(new BasicNameValuePair("type_name", txtPersonnelName.getText().toString()));
-	        }
-	        try
-	        {
-	        	
-	            HttpClient httpclient = new DefaultHttpClient();
-	            HttpPost httppost = new HttpPost("http://192.168.1.67:80/Insert_Personnel.php");
-	            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	            HttpResponse response = httpclient.execute(httppost);
 
-	           runOnUiThread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					tv.setVisibility(View.GONE);
-					txtPersonnelName.setVisibility(View.GONE);
-					bnew.setEnabled(true);
-					bdelete.setEnabled(true);
-					
-					// refresh activity 
-					MyTask task = new MyTask();
-					task.execute("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.personnel");
-					 Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
-				}
-			});
-	            Log.e("pass 1", "connection success ");
-	        }
-	        catch(Exception e)
-	        {
-	            Log.e("Fail 1", e.toString());
-	        }   
-	    }
-	   
-	   
 	
 	private class MyTask extends AsyncTask<String, String, String> {
 
@@ -174,20 +103,50 @@ public class PersonnelActivity extends Activity {
 		setContentView(R.layout.activity_personnel);
 	
 		this.txtPersonnelName = (EditText)findViewById(R.id.txtPersonnelName);
-		txtPersonnelName.setVisibility(View.GONE);
-		this.tv=(TextView)findViewById(R.id.textViewPersonnel);
-		tv.setVisibility(View.GONE);
-		this.bsave=(Button) findViewById(R.id.btnSavePersonnel);
-		
-		this.bnew=(Button) findViewById(R.id.btnNewPersonnel);
-		
-		this.bdelete=(Button) findViewById(R.id.btnDeletePersonnel);
-		
+
 		this.lstHeader = (ListView)findViewById(R.id.lstPersonnelHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstPersonnelDetails);
 		tasks = new ArrayList<>();
-		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.personnel");
+		LoadGridHeader();
+		
+		this.requestData();
+
+		this.lstReservedWorkDetails
+				.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Intent I = new Intent(getApplicationContext(), EditPersonnelDetails.class);
+						I.putExtra("personnel_id", arrDetails.get(position).get("PersonnelID"));
+
+						I.putExtra("personnel_name", arrDetails.get(position).get("PersonnelName"));
+
+						startActivity(I);
+					}
+				});
+		
+		new Thread() {
+			public void run() {
+				
+				//LoadGridDetails();
+				while (true) {
+					if (blnReloadGrid) {
+						requestData();
+						blnReloadGrid = false;
+					}
+				}
+
+			}
+		}.start();
 	}
+
+	public static boolean blnReloadGrid = false;
+	
+	void requestData(){
+		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.personnel");
+	}
+
 	
 	private void requestData(String uri) {
 		MyTask task = new MyTask();
@@ -202,10 +161,11 @@ public class PersonnelActivity extends Activity {
             this.arrHeader = new ArrayList<HashMap<String, String>>();
             this.mapReservedWorkHeader = new HashMap<String, String>();
            
-                this.mapReservedWorkHeader.put("CenterName", "Personnel name");
+            this.mapReservedWorkHeader.put("PersonnelID", "Personnel ID");
+            this.mapReservedWorkHeader.put("PersonnelName", "Personnel name");
             
             this.arrHeader.add(this.mapReservedWorkHeader);
-            this.adHeader = new SimpleAdapter(this, arrHeader, R.layout.grid_template, new String[] {"LocationID", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
+            this.adHeader = new SimpleAdapter(this, arrHeader, R.layout.grid_template, new String[] {"PersonnelID", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName});
             this.lstHeader.setAdapter(this.adHeader);
         }
         catch(Exception e){
@@ -224,15 +184,13 @@ public class PersonnelActivity extends Activity {
             for(int i = 0; i < this.personnelList.size(); i++){
              this.mapReservedWorkDetails = new HashMap<String, String>();
              
-                 this.mapReservedWorkDetails.put("LocationID", "");
-                 this.mapReservedWorkDetails.put("CenterName", this.personnelList.get(i).getPersonnelName());
-                 this.mapReservedWorkDetails.put("SalleName", "");
-                 this.mapReservedWorkDetails.put("PersonnelName", "");
-             
+				this.mapReservedWorkDetails.put("PersonnelID", Integer.toString(this.personnelList.get(i).getPersonnelId()));
+                 this.mapReservedWorkDetails.put("PersonnelName", this.personnelList.get(i).getPersonnelName());
+          
 
              this.arrDetails.add(this.mapReservedWorkDetails);
             }
-            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.grid_template, new String[] {"LocationID", "CenterName", "SalleName", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName, R.id.labSalleName, R.id.labPersonnelName});
+            this.adDetails = new SimpleAdapter(this, arrDetails, R.layout.grid_template, new String[] {"PersonnelID", "PersonnelName"}, new int[] {R.id.labLocationID, R.id.labCenterName});
             this.lstReservedWorkDetails.setAdapter(this.adDetails);
     }
     catch(Exception e){
@@ -283,7 +241,7 @@ public class PersonnelActivity extends Activity {
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transations) {
-			Intent I = new Intent(getApplicationContext(), TransactionsActivity.class);
+			Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transport) {

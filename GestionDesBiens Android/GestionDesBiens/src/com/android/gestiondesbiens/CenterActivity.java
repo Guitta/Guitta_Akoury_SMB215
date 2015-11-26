@@ -1,40 +1,27 @@
 package com.android.gestiondesbiens;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import com.android.gestiondesbiens.model.Center;
-
-import com.android.gestiondesbiens.parsers.CenterXMLParser;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.android.gestiondesbiens.model.Center;
+import com.android.gestiondesbiens.parsers.CenterXMLParser;
 
 public class CenterActivity extends Activity {
 
@@ -51,57 +38,6 @@ public class CenterActivity extends Activity {
 		startActivity(I);
 	}
 
-/**	public void btnSaveCenter_Click(View v) {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				insertDeviceId();
-			}
-		}).start();
-	}
-
-	public void insertDeviceId() {
-		InputStream is = null;
-		String result = null;
-		String line = null;
-		int code;
-		boolean res = false;
-		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		if (txtCenterName.getText().toString().trim().equalsIgnoreCase("")) {
-			txtCenterName.setError("Center name is required");
-		} else {
-			nameValuePairs.add(new BasicNameValuePair("center_name",
-					txtCenterName.getText().toString()));
-		}
-		try {
-
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					"http://192.168.1.67:80/Insert_Center.php");
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			HttpResponse response = httpclient.execute(httppost);
-
-			runOnUiThread(new Runnable() {
-
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-
-
-					// refresh activity
-					MyTask task = new MyTask();
-					task.execute("http://192.168.1.67:8080/GestionDesBiens/webresources/model.center");
-					Toast.makeText(getApplicationContext(), "done",
-							Toast.LENGTH_LONG).show();
-				}
-			});
-			Log.e("pass 1", "connection success ");
-		} catch (Exception e) {
-			Log.e("Fail 1", e.toString());
-		}
-	} **/
 
 	private class MyTask extends AsyncTask<String, String, String> {
 
@@ -323,7 +259,7 @@ public class CenterActivity extends Activity {
 			return true;
 		} else if (id == R.id.action_get_transations) {
 			Intent I = new Intent(getApplicationContext(),
-					TransactionsActivity.class);
+					UserTransactionsActivity.class);
 			startActivity(I);
 			return true;
 		} else if (id == R.id.action_get_transport) {

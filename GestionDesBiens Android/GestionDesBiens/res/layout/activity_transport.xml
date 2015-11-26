@@ -10,9 +10,10 @@
 
   <ListView
         android:id="@+id/lstTransportHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+   android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/btnNewTransport"
+    android:layout_centerHorizontal="true"
         android:background="@android:color/darker_gray" >
     </ListView>
 
@@ -26,51 +27,15 @@
            
    <Button
         android:id="@+id/btnNewTransport"
-        android:layout_width="wrap_content"
+		android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="29dp"
+        android:layout_alignParentTop="true"
         android:onClick="btnNewTransport_Click"
         android:text="New" />
    
      
-   <Button
-        android:id="@+id/btnSaveTransport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnNewTransport"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnSaveTransport_Click"
-        android:text="Save" />
-   
-   <Button
-        android:id="@+id/btnDeleteTransport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnSaveTransport"
-        android:layout_marginLeft="20dp"
-        android:onClick="btnDeleteTransport_Click"
-        android:text="Delete" />
-   
-     <TextView
-        android:id="@+id/textViewTransport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnNewTransport"
-
-        android:layout_marginBottom="44dp"
-        android:text="Personnel name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-     
-    <Spinner
-        android:id="@+id/spinPersonnel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewTransport"
-        android:layout_toRightOf="@+id/textViewTransport" />
-   
+ 
 
 </RelativeLayout>

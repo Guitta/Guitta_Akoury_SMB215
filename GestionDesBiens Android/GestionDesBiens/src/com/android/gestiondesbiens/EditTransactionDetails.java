@@ -60,7 +60,8 @@ public class EditTransactionDetails extends Activity {
 								Toast.makeText(getApplicationContext(), "A new transaction has been added.", Toast.LENGTH_LONG).show();
 							else
 								Toast.makeText(getApplicationContext(), "The selected transaction has been updated.", Toast.LENGTH_LONG).show();
-							TransactionsActivity.blnReloadGrid = true;
+							UserTransactionsActivity.blnReloadGrid = true;
+
 							finish();
 						}
 					});
@@ -103,7 +104,7 @@ public class EditTransactionDetails extends Activity {
 							@Override
 							public void run() {
 								Toast.makeText(getApplicationContext(), "Transaction deleted.", Toast.LENGTH_LONG).show();
-								TransactionsActivity.blnReloadGrid = true;
+								UserTransactionsActivity.blnReloadGrid = true;
 							}
 						});
 		        		finish();

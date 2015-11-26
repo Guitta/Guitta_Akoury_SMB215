@@ -14,11 +14,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -44,21 +44,9 @@ public class TransportActivity extends Activity {
     
 	
 	public void btnNewTransport_Click (View v){
-		
-		array_spinner = new String[personnelList.size()];
-		for (int i = 0; i < personnelList.size(); i++)
-		{
-			personnelName = personnelList.get(i).getPersonnelName();
-		    array_spinner[i] = personnelName;
-		    Log.i("array_spinner" + i, array_spinner[i]);
-		}
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-		    android.R.layout.simple_spinner_item, array_spinner);
-		sp.setAdapter(adapter);
-		sp.setVisibility(View.VISIBLE);
-		tv.setVisibility(View.VISIBLE);
-
+		Intent I = new Intent(this, EditTransportDetails.class);
+		I.putExtra("transport_id", "0");
+		startActivity(I);
 	}
 	
 	private class MyTask extends AsyncTask<String, String, String> {
@@ -117,22 +105,48 @@ public class TransportActivity extends Activity {
 	
 	ListView lstHeader, lstReservedWorkDetails;
 
-
+	public static boolean blnReloadGrid = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_transport);
 		
-		tv=(TextView)findViewById(R.id.textViewTransport);
-		tv.setVisibility(View.GONE);
-		
-		sp=(Spinner)findViewById(R.id.spinPersonnel);
-		sp.setVisibility(View.GONE);
+
 		
 		this.lstHeader = (ListView)findViewById(R.id.lstTransportHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstTransportDetails);
 		tasks = new ArrayList<>();
+		this.requestTransportData();
+		
+		this.LoadGridHeader();
+		
+		this.lstReservedWorkDetails.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent I = new Intent(getApplicationContext(), EditTransportDetails.class);
+				I.putExtra("transport_id", arrDetails.get(position).get("LocationID"));
+				startActivity(I);
+			}
+		});
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+		    	while(true){
+		    		if(blnReloadGrid){
+		    			requestTransportData();
+				    	blnReloadGrid = false;
+		    		}
+		    	}
+			}
+		}).start();
+	}
+	
+	void requestTransportData(){
 		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.transport");
 	}
 
@@ -165,7 +179,6 @@ public class TransportActivity extends Activity {
     
     void LoadGridDetails(){
         try{
-        	this.LoadGridHeader();
         	this.adDetails = null;
         	this.lstReservedWorkDetails.setAdapter(this.adDetails);
         	

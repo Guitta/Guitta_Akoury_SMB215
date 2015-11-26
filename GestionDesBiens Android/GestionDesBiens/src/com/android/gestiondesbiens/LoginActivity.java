@@ -98,7 +98,7 @@ public class LoginActivity extends Activity {
 							startActivity(I);
 							return;
 						} else {
-							Intent I = new Intent(getApplicationContext(), UserTransactionActivity.class);
+							Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 							startActivity(I);
 							return;
 						}

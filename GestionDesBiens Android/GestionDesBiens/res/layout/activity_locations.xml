@@ -9,11 +9,13 @@
     tools:context="com.android.gestiondesbiens.LocationsActivity" >
 
    <ListView
-        android:id="@+id/lstReservedWorkHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/darker_gray" >
+       android:id="@+id/lstReservedWorkHeader"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/btnNewLocation"
+       android:layout_centerHorizontal="true"
+       android:background="@android:color/darker_gray" >
+
     </ListView>
 
     <ListView
@@ -23,5 +25,13 @@
         android:layout_height="wrap_content">
         </ListView>
 
+    <Button
+        android:id="@+id/btnNewLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lstReservedWorkHeader"
+        android:layout_alignParentTop="true"
+        android:onClick="btnNewLocation_Click"
+        android:text="New" />
 
 </RelativeLayout>

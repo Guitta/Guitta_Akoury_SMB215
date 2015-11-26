@@ -38,62 +38,7 @@ public class SallesActivity extends Activity {
 		startActivity(I);
 	}
 	
-/**	public void btnSaveSalle_Click(View v){
-		new Thread(new Runnable() {
-			
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				insertDeviceId();
-			}
-		}).start();
-	}
-	
-	   public void insertDeviceId()
-	    {
-	          InputStream is=null;
-	          String result=null;
-	          String line=null;
-	          int code;
-	          boolean res = false;
-	        ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-	        if (txtSalleName.getText().toString().trim().equalsIgnoreCase("")){
-	        	txtSalleName.setError("Salle name is required");
-	        } else{
-	        	nameValuePairs.add(new BasicNameValuePair("salle_name", txtSalleName.getText().toString()));
-	        }
-	        try
-	        {
-	        	
-	            HttpClient httpclient = new DefaultHttpClient();
-	            HttpPost httppost = new HttpPost("http://192.168.1.67:80/Insert_salle.php");
-	            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	            HttpResponse response = httpclient.execute(httppost);
 
-	           runOnUiThread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					tv.setVisibility(View.INVISIBLE);
-					txtSalleName.setVisibility(View.INVISIBLE);
-					bnew.setEnabled(true);
-					bdelete.setEnabled(true);
-					// refresh activity 
-					MyTask task = new MyTask();
-					task.execute("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.salle");
-					 Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
-				}
-			});
-	            Log.e("pass 1", "connection success ");
-	        }
-	        catch(Exception e)
-	        {
-	            Log.e("Fail 1", e.toString());
-	        }   
-	    } **/
-	   
 	
 	private class MyTask extends AsyncTask<String, String, String> {
 
@@ -294,7 +239,7 @@ public class SallesActivity extends Activity {
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transations) {
-			Intent I = new Intent(getApplicationContext(), TransactionsActivity.class);
+			Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transport) {

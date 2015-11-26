@@ -91,7 +91,7 @@ public class GroupsActivity extends Activity {
 		this.lstHeader = (ListView)findViewById(R.id.lstReservedWorkHeader);
 		this.lstReservedWorkDetails = (ListView)findViewById(R.id.lstReservedWorkDetails);
 		tasks = new ArrayList<>();
-		this.requestData("http://192.168.1.67:8080/GestionDesBiens/webresources/model.groupe");
+		this.requestData("http://" + ClsCommon.SERVER_IP.split(":")[0] + ":8080/GestionDesBiens/webresources/model.groupe");
 	}
 
 	private void requestData(String uri) {
@@ -191,7 +191,7 @@ public class GroupsActivity extends Activity {
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transations) {
-			Intent I = new Intent(getApplicationContext(), TransactionsActivity.class);
+			Intent I = new Intent(getApplicationContext(), UserTransactionsActivity.class);
 			startActivity(I);		
 			return true;
 		}else if (id == R.id.action_get_transport) {

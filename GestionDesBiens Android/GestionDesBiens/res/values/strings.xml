@@ -46,5 +46,9 @@
     <string name="title_activity_edit_item_details">Edit Item Details</string>
     <string name="title_activity_edit_salle_details">Edit Salle Details</string>
     <string name="title_activity_edit_type_details">Edit Type Details</string>
+    <string name="title_activity_edit_location_details">Edit Location Details</string>
+    <string name="title_activity_edit_transport_details">Edit Transport Details</string>
+    <string name="title_activity_edit_personnel_details">Edit Personnel Details</string>
+    <string name="title_activity_edit_user_transaction_details">Edit User Transaction Details</string>
 
 </resources>

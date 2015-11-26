@@ -8,9 +8,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.android.gestiondesbiens.EditTypeDetails" >
 
-    <TextView
+    <EditText
+        android:id="@+id/txtTypeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignBottom="@+id/textViewType"
+        android:layout_toRightOf="@+id/textViewType"
+        android:ems="10" />
 
+    <Button
+        android:id="@+id/btnSaveType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewType"
+        android:layout_below="@+id/txtTypeName"
+        android:layout_marginTop="50dp"
+        android:onClick="btnSaveType_Click"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/btnDeleteType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnSaveType"
+        android:layout_below="@+id/btnSaveType"
+        android:onClick="btnDeleteType_Click"
+        android:text="Delete" />
+
+    <TextView
+        android:id="@+id/textViewType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:text="Type name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 </RelativeLayout>
